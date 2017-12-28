@@ -1,0 +1,186 @@
+{
+  "name": "Crypto Price",
+  "version": "1.0",
+  "url_ws": "wss://streamer.cryptocompare.com/",
+  "base_api": "https://min-api.cryptocompare.com/data/",
+  "default_exchange": "Coinbase",
+  "exchanges": {
+    "Bitstamp": [
+      "BTC|USD,EUR",
+      "ETH|USD,EUR",
+      "LTC|USD,EUR",
+      "XRP|USD,EUR"
+    ],
+    "Coinbase": [
+      "BTC|USD,EUR",
+      "ETH|USD,EUR",
+      "LTC|USD,EUR"
+    ],
+    "Poloniex": [
+      "DASH|USD",
+      "LTC|USD",
+      "NXT|USD",
+      "ETC|USD",
+      "ZEC|USD",
+      "XLM|USD",
+      "BTC|USD",
+      "REP|USD",
+      "XMR|USD",
+      "ETH|USD",
+      "HYP|USD",
+      "BCH|USD",
+      "XRP|USD"
+    ],
+    "Bitfinex": [
+      "EOS|USD",
+      "XRP|USD",
+      "EDO|USD",
+      "BT1|USD",
+      "SAN|USD",
+      "BCC|USD",
+      "ZEC|USD",
+      "BT2|USD",
+      "DAT|USD",
+      "BFX|USD",
+      "OMG|USD",
+      "BCH|USD",
+      "ETH|USD",
+      "NEO|USD",
+      "IOT|USD",
+      "AVT|USD",
+      "ETC|USD",
+      "QASH|USD",
+      "DATA|USD",
+      "LTC|USD",
+      "ETP|USD",
+      "BTC|USD,EUR",
+      "XMR|USD",
+      "BTG|USD",
+      "RRT|USD",
+      "DASH|USD"
+    ],
+    "Kraken": [
+      "BCH|USD,EUR",
+      "EOS|USD,EUR",
+      "ETH|USD,EUR",
+      "GNO|USD,EUR",
+      "BTC|USD,EUR",
+      "XRP|USD,EUR",
+      "ETC|USD,EUR",
+      "LTC|USD,EUR",
+      "REP|USD,EUR",
+      "VEN|USD,EUR",
+      "ZEC|USD,EUR",
+      "USDT|USD",
+      "XMR|USD,EUR",
+      "MLN|EUR",
+      "DASH|USD,EUR",
+      "XLM|USD,EUR"
+    ]
+  },
+  "coins": {
+    "BTC": {
+      "name": "Bitcoin"
+    },
+    "ETH": {
+      "name": "Ethereum"
+    },
+    "LTC": {
+      "name": "Litecoin"
+    },
+    "XRP": {
+      "name": "Ripple"
+    },
+    "DASH": {
+      "name": "DigitalCash"
+    },
+    "NXT": {
+      "name": "Nxt"
+    },
+    "ETC": {
+      "name": "Ethereum Classic"
+    },
+    "ZEC": {
+      "name": "ZCash"
+    },
+    "XLM": {
+      "name": "Stellar"
+    },
+    "REP": {
+      "name": "Augur"
+    },
+    "XMR": {
+      "name": "Monero"
+    },
+    "HYP": {
+      "name": "Hyperstake"
+    },
+    "BCH": {
+      "name": "Bitcoin Cash / BCC"
+    },
+    "EOS": {
+      "name": "EOS"
+    },
+    "EDO": {
+      "name": "Eidoo"
+    },
+    "BT1": {
+      "name": "Bitfinex Bitcoin Future"
+    },
+    "SAN": {
+      "name": "Santiment"
+    },
+    "BCC": {
+      "name": "Bitcoin Cash / BCC"
+    },
+    "BT2": {
+      "name": "Bitcoin SegWit2X"
+    },
+    "DAT": {
+      "name": "Datum"
+    },
+    "BFX": {
+      "name": "BitFinex Tokens"
+    },
+    "OMG": {
+      "name": "OmiseGo"
+    },
+    "NEO": {
+      "name": "NEO"
+    },
+    "IOT": {
+      "name": "IOTA"
+    },
+    "AVT": {
+      "name": "AventCoin"
+    },
+    "QASH": {
+      "name": "Quoine Liquid"
+    },
+    "DATA": {
+      "name": "Streamr DATAcoin"
+    },
+    "ETP": {
+      "name": "Metaverse"
+    },
+    "BTG": {
+      "name": "Bitcoin Gold"
+    },
+    "RRT": {
+      "name": "Recovery Right Tokens"
+    },
+    "GNO": {
+      "name": "Gnosis"
+    },
+    "VEN": {
+      "name": "Vechain"
+    },
+    "USDT": {
+      "name": "Tether"
+    },
+    "MLN": {
+      "name": "Melon"
+    }
+  },
+  "map_response": "TYPE_REQUEST~EXCHANGE~FROM_CURRENCY~TO_CURRENCY~FLAG_RESPONSE~PRICE~LAST_UPDATE~LAST_VOLUME~LAST_VOLUME_TO~LAST_TRADE_ID~VOLUME_24H~VOLUME_24H_TO~MASKINT"
+}
