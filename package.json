@@ -3,7 +3,7 @@
   "productName": "Crypto Price",
   "version": "1.0.0",
   "private": true,
-  "description": "An app to inform us of price of the main crypto-coins",
+  "description": "An app to inform us of price (USD & EUR) of the main crypto-coins",
   "author": "Luis Miguel <lmiguelfresneda@email.com>",
   "scripts": {
     "clean": "node build/script.clean.js",

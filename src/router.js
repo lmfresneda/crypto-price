@@ -14,7 +14,13 @@ export default new VueRouter({
   scrollBehavior: () => ({ y: 0 }),
 
   routes: [
-    { path: '/', component: load('CoinList') },
+    {
+      path: '/',
+      component: load('CoinList'),
+      children: [
+        { path: 'pair/:pair', component: load('CoinListItem') }
+      ]
+    },
 
     // Always leave this last one
     { path: '*', component: load('Error404') } // Not found

@@ -1,15 +1,17 @@
 import Vuex from 'vuex'
 import fetch from 'node-fetch'
-import { LocalStorage } from 'quasar'
+import { LocalStorage, date } from 'quasar'
 import io from 'socket.io-client'
 import config from './assets/config'
 import CCC from './utils/ccc'
 
-const KEY_WEB_STORE = '__CONFIG_CRYPTO_APP__'
+const KEY_WEB_STORE_CONFIG = '__CONFIG_CRYPTO_APP__'
+const KEY_WEB_STORE_REALTIME = '__REALTIME_CRYPTO_APP__'
 
 const store = new Vuex.Store({
   state: {
     error: false,
+    realTime: false,
     config: {
       name: 'Crypto Price',
       version: '1.0',
@@ -35,15 +37,19 @@ const store = new Vuex.Store({
     }
   },
   mutations: {
+    SET_REAL_TIME (state, payload) {
+      state.realTime = payload
+      LocalStorage.set(KEY_WEB_STORE_REALTIME, payload)
+    },
     SET_CONFIG (state, payload) {
       state.config = payload
-      LocalStorage.set(KEY_WEB_STORE, payload)
+      LocalStorage.set(KEY_WEB_STORE_CONFIG, payload)
     },
     SET_EXCHANGE (state, exchange) {
-      const configStorage = LocalStorage.get.item(KEY_WEB_STORE)
+      const configStorage = LocalStorage.get.item(KEY_WEB_STORE_CONFIG)
       if (configStorage) {
         configStorage.default_exchange = exchange
-        LocalStorage.set(KEY_WEB_STORE, configStorage)
+        LocalStorage.set(KEY_WEB_STORE_CONFIG, configStorage)
       }
 
       state.config.default_exchange = exchange
@@ -65,10 +71,19 @@ const store = new Vuex.Store({
       if (data !== null && data.EXCHANGE === state.config.default_exchange) {
         data.FROM_CURRENCY_NAME = state.config.coins[data.FROM_CURRENCY].name
         data.CODE = `${data.FROM_CURRENCY}${data.TO_CURRENCY}`
+        data.LAST_UPDATE_FORMAT = date.formatDate(parseInt(data.LAST_UPDATE) * 1000, 'DD/MM/YYYY HH:mm:ss')
 
         state.data.list = state.data.list.filter(d => d.CODE !== data.CODE)
         state.data.list.push(data)
       }
+      state.data.list.sort((a, b) => {
+        if (a.CODE > b.CODE) return 1
+        if (a.CODE < b.CODE) return -1
+        return 0
+      })
+    },
+    SET_DATA_LIST_MANUAL (state, data) {
+      state.data.list = data
       state.data.list.sort((a, b) => {
         if (a.CODE > b.CODE) return 1
         if (a.CODE < b.CODE) return -1
@@ -101,7 +116,7 @@ const store = new Vuex.Store({
     // trae la configuración
     async FETCH_CONFIG ({ commit, state }) {
       // miramos si la tenemos en caché
-      const configStorage = LocalStorage.get.item(KEY_WEB_STORE)
+      const configStorage = LocalStorage.get.item(KEY_WEB_STORE_CONFIG)
       if (configStorage) commit('SET_CONFIG', configStorage)
       else {
         // si no la tenemos, la pedimos
@@ -109,17 +124,12 @@ const store = new Vuex.Store({
         // data.default_exchange = 'Coinbase'
         commit('SET_CONFIG', data)
       }
-    },
-    // forma los datos para las subscripciones
-    async FETCH_DATA_LIST ({ commit, state }) {
-      if (state.data.socket && state.data.subscription.length && !state.error) {
-        // desconectar del ws
-        commit('CLEAR_DATA_LIST')
-        commit('SubRemove')
+      const configRealTime = LocalStorage.get.item(KEY_WEB_STORE_REALTIME)
+      if (configRealTime !== undefined && configRealTime !== null) {
+        commit('SET_REAL_TIME', configRealTime)
       }
-
-      console.log(state.config.default_exchange)
-
+    },
+    async FETCH_DATA_LIST_SOCKET ({ commit, state }) {
       // formar las peticiones para el ws
       const subs = state.config.exchanges[state.config.default_exchange].reduce((prev, coincurr) => {
         const coin = coincurr.split('|')[0]
@@ -136,6 +146,61 @@ const store = new Vuex.Store({
       }, [])
       commit('SET_SUBSCRIPTION', subs)
       commit('CONNECT_SOCKET')
+    },
+    async FETCH_DATA_LIST_MANUAL ({ commit, state }) {
+      // pedir las monedas de forma manual
+      // TODO intentar cambiar al endpoint https://min-api.cryptocompare.com/data/pricemultifull?
+      // DOC en https://www.cryptocompare.com/api/#-api-data-price- --> pricemultifull
+      const arProm = []
+      state.config.exchanges[state.config.default_exchange].forEach((coincurr) => {
+        const coin = coincurr.split('|')[0]
+        const curr = coincurr.split('|')[1]
+        curr.split(',').forEach((cur) => {
+          const url = `${state.config.base_api}histominute?limit=2&fsym=${coin}&tsym=${cur}&aggregate=1&e=${state.config.default_exchange}`
+
+          const prom = fetch(url).then(res => res && res.json ? res.json() : null).then((response) => {
+            if (!response || !response.Data.length) return Promise.resolve(null)
+            response.Data.sort((a, b) => {
+              if (a.time > b.time) return 1
+              if (a.time < b.time) return -1
+              return 0
+            })
+            const last = response.Data.pop()
+            const semilast = response.Data.pop()
+            return Promise.resolve({
+              FROM_CURRENCY: coin,
+              FROM_CURRENCY_NAME: state.config.coins[coin].name,
+              TO_CURRENCY: cur,
+              CODE: `${coin}${cur}`,
+              FLAG_RESPONSE:
+                last.close === semilast.close // si se ha mantenido, es 4
+                  ? '4'
+                  : last.close > semilast.close // si ha subido es 1
+                    ? '1'
+                    : '2', // si ha bajado es 2
+              LAST_UPDATE: Date.now(),
+              LAST_UPDATE_FORMAT: date.formatDate(Date.now(), 'DD/MM/YYYY HH:mm:ss'),
+              PRICE: last.close
+            })
+          })
+          arProm.push(prom)
+        })
+      })
+      const all = await Promise.all(arProm)
+      commit('SET_DATA_LIST_MANUAL', all.filter(a => a !== null))
+    },
+    // forma los datos para las subscripciones
+    async FETCH_DATA_LIST ({ commit, state, dispatch }) {
+      if (state.data.socket && state.data.subscription.length && !state.error) {
+        // desconectar del ws
+        commit('CLEAR_DATA_LIST')
+        commit('SubRemove')
+      }
+
+      commit('CLEAR_DATA_LIST')
+
+      if (state.realTime) return dispatch('FETCH_DATA_LIST_SOCKET')
+      else return dispatch('FETCH_DATA_LIST_MANUAL')
     }
   }
 })

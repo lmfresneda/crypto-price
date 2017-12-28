@@ -3,7 +3,7 @@ import {
   QItemSeparator, QItem, QItemSide, QItemMain
 } from 'quasar'
 export default {
-  props: ['item'],
+  props: ['pair'],
   components: {
     QItemSeparator, QItem, QItemSide, QItemMain
   },
