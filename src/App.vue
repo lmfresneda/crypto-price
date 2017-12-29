@@ -12,4 +12,20 @@
 export default {}
 </script>
 
-<style></style>
+<style lang="scss">
+.no-decoration {
+  text-decoration: none;
+}
+
+.icon-white {
+  color: white;
+}
+.icon-close {
+  float: right;
+  margin-right: -10px;
+}
+.config-title {
+  display: inline-block;
+  margin-top: 5px;
+}
+</style>

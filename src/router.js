@@ -18,8 +18,12 @@ export default new VueRouter({
       path: '/',
       component: load('CoinList'),
       children: [
-        { path: 'pair/:pair', component: load('CoinListItem') }
+        { path: 'coin', component: load('Coin'), props: true }
       ]
+    },
+    {
+      path: '/config',
+      component: load('Configuration')
     },
 
     // Always leave this last one
