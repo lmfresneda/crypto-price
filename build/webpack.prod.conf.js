@@ -17,7 +17,7 @@ module.exports = merge(baseWebpackConfig, {
       postcss: true
     })
   },
-  devtool: config.build.productionSourceMap ? '#source-map' : false,
+  devtool: config.build.productionSourceMap ? '#inline-source-map' : false,
   plugins: [
     new webpack.optimize.UglifyJsPlugin({
       sourceMap: config.build.productionSourceMap,

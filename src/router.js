@@ -16,17 +16,16 @@ export default new VueRouter({
   routes: [
     {
       path: '/',
+      name: 'CoinList',
       component: load('CoinList'),
       children: [
-        { path: 'coin', component: load('Coin'), props: true }
+        { path: ':from/:to', name: 'Coin', component: load('Coin'), props: true }
       ]
     },
     {
       path: '/config',
+      name: 'Configuration',
       component: load('Configuration')
-    },
-
-    // Always leave this last one
-    { path: '*', component: load('Error404') } // Not found
+    }
   ]
 })

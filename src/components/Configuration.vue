@@ -1,11 +1,7 @@
 <script>
 import quasarUtil from '../utils/quasar-util'
 import { mapState } from 'vuex'
-import {
-  SET_REAL_TIME,
-  FETCH_DATA_LIST,
-  SET_EXCHANGE
-} from '../store'
+import { types } from '../store'
 
 export default {
   props: ['onclose'],
@@ -18,18 +14,28 @@ export default {
       thisRealTime: false
     }
   },
+  beforeMount () {
+    this.thisRealTime = this.realTime
+  },
   watch: {
     'config.default_exchange': function () {
-      this.$store.commit(SET_EXCHANGE, this.config.default_exchange)
-      this.$store.dispatch(FETCH_DATA_LIST)
+      this.$store.commit(types.SET_EXCHANGE, this.config.default_exchange)
+      this.$store.dispatch(types.FETCH_DATA_LIST)
     },
     thisRealTime () {
-      this.$store.commit(SET_REAL_TIME, this.thisRealTime)
-      this.$store.dispatch(FETCH_DATA_LIST)
+      if (this.thisRealTime === this.realTime) return
+      this.$store.commit(types.SET_REAL_TIME, this.thisRealTime)
+      this.$store.dispatch(types.FETCH_DATA_LIST)
     }
   },
   computed: {
     ...mapState(['config', 'realTime'])
+  },
+  methods: {
+    closeConfig () {
+      this.$store.commit(types.SET_VIEW_CHILDREN, false)
+      this.$router.go(-1)
+    }
   }
 }
 </script>
@@ -42,7 +48,7 @@ export default {
         <span class="config-title">Configuration</span>
         <q-icon
           class="icon-close icon-white"
-          @click="onclose()"
+          @click="closeConfig()"
           name="close" size="2rem"/>
       </q-toolbar-title>
     </q-toolbar>
@@ -69,6 +75,7 @@ export default {
         <p>
           <q-toggle
             v-model="thisRealTime"
+            :value="realTime"
             left-label
             label="Real Time"
             color="indigo-10" />
@@ -77,7 +84,7 @@ export default {
           color="red"
           icon="warning"
           v-if="realTime" >
-          Attention, real time can consume a lot of your data. Are you sure?
+          Attention, real time can consume too much data. Are you sure?
         </q-alert>
         <q-alert
           color="indigo-5"

@@ -1,10 +1,10 @@
 <script>
 import quasarUtil from '../utils/quasar-util'
-import { mapState } from 'vuex'
-import { SET_VIEW_COIN } from '../store'
+import { mapState, mapGetters } from 'vuex'
+import { types } from '../store'
 
 export default {
-  props: ['coin'],
+  props: ['from', 'to'],
   name: 'coin',
   components: {
     ...quasarUtil.getQComponents()
@@ -13,32 +13,17 @@ export default {
     return {}
   },
   computed: {
-    ...mapState(['config', 'coinIsView']),
+    ...mapState(['config', 'coinIsView', 'realTime']),
+    ...mapGetters(['getDataCoinsList']),
     getItem () {
-      return this.$route.query
+      const coin = this.getDataCoinsList.find(c => c.CODE === `${this.from}${this.to}`)
+      return coin
     }
   },
   methods: {
-    getIconByStatus (status) {
-      return ({
-        0: 'remove',
-        4: 'remove',
-        1: 'arrow_drop_up',
-        2: 'arrow_drop_down'
-      })[status]
-    },
-    getSymbol (currency) {
-      return ({
-        'USD': '$',
-        'EUR': '€'
-      })[currency]
-    },
-    getPriceFormatted (price) {
-      return parseFloat(parseFloat(price).toFixed(8))
-    },
     closeCoin () {
-      this.$store.commit(SET_VIEW_COIN, false)
-      this.$router.go(-1)
+      this.$store.commit(types.SET_VIEW_CHILDREN, false)
+      this.$router.push({ name: 'CoinList' })
     }
   }
 }

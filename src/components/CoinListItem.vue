@@ -1,7 +1,7 @@
 <script>
 import quasarUtil from '../utils/quasar-util'
 import { mapState } from 'vuex'
-import { SET_VIEW_COIN } from '../store'
+import { types } from '../store'
 
 export default {
   props: ['item'],
@@ -16,26 +16,12 @@ export default {
     ...mapState(['config'])
   },
   methods: {
-    getIconByStatus (status) {
-      return ({
-        0: 'remove',
-        4: 'remove',
-        1: 'arrow_drop_up',
-        2: 'arrow_drop_down'
-      })[status]
-    },
-    getSymbol (currency) {
-      return ({
-        'USD': '$',
-        'EUR': '€'
-      })[currency]
-    },
-    getPriceFormatted (price) {
-      return parseFloat(parseFloat(price).toFixed(8))
-    },
     viewCoin () {
-      this.$store.commit(SET_VIEW_COIN, true)
-      this.$router.push({ path: '/coin', query: this.item })
+      this.$store.commit(types.SET_VIEW_CHILDREN, true)
+      this.$router.push({
+        name: 'Coin',
+        params: { from: this.item.FROM_CURRENCY, to: this.item.TO_CURRENCY }
+      })
     }
   }
 }
@@ -51,12 +37,12 @@ export default {
     </q-item-side>
     <q-item-main :class="`currency-list-item__${item.FLAG_RESPONSE}`">
       <q-item-tile class="currency-list-item-price" label>
-        {{ getSymbol(item.TO_CURRENCY) }} {{ getPriceFormatted(item.PRICE) }}
+        {{ item.TO_CURRENCY | getSymbol }} {{ item.PRICE | getPriceFormatted }}
       </q-item-tile>
       <small class="currency-list-item-volume light-paragraph">{{ item.LAST_UPDATE_FORMAT }}</small>
     </q-item-main>
     <q-item-side right>
-      <q-icon :name="getIconByStatus (item.FLAG_RESPONSE)"
+      <q-icon :name="item.FLAG_RESPONSE | getIconByStatus"
         :class="`currency-list-item__${item.FLAG_RESPONSE}`"
         size="2.5rem"/>
     </q-item-side>
