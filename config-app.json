@@ -80,106 +80,140 @@
   },
   "coins": {
     "BTC": {
-      "name": "Bitcoin"
+      "name": "Bitcoin",
+      "image": "/media/19633/btc.png"
     },
     "ETH": {
-      "name": "Ethereum"
+      "name": "Ethereum",
+      "image": "/media/20646/eth_logo.png"
     },
     "LTC": {
-      "name": "Litecoin"
+      "name": "Litecoin",
+      "image": "/media/19782/litecoin-logo.png"
     },
     "XRP": {
-      "name": "Ripple"
+      "name": "Ripple",
+      "image": "/media/19972/ripple.png"
     },
     "DASH": {
-      "name": "DigitalCash"
+      "name": "DigitalCash",
+      "image": "/media/20626/imageedit_27_4355944719.png"
     },
     "NXT": {
-      "name": "Nxt"
+      "name": "Nxt",
+      "image": "/media/20627/nxt.png"
     },
     "ETC": {
-      "name": "Ethereum Classic"
+      "name": "Ethereum Classic",
+      "image": "/media/20275/etc2.png"
     },
     "ZEC": {
-      "name": "ZCash"
+      "name": "ZCash",
+      "image": "/media/351360/zec.png"
     },
     "XLM": {
-      "name": "Stellar"
+      "name": "Stellar",
+      "image": "/media/20696/str.png"
     },
     "REP": {
-      "name": "Augur"
+      "name": "Augur",
+      "image": "/media/350815/augur-logo.png"
     },
     "XMR": {
-      "name": "Monero"
+      "name": "Monero",
+      "image": "/media/19969/xmr.png"
     },
     "HYP": {
-      "name": "Hyperstake"
+      "name": "Hyperstake",
+      "image": "/media/20624/hyp.png"
     },
     "BCH": {
-      "name": "Bitcoin Cash / BCC"
+      "name": "Bitcoin Cash / BCC",
+      "image": "/media/1383919/bch.jpg"
     },
     "EOS": {
-      "name": "EOS"
+      "name": "EOS",
+      "image": "/media/1383652/eos_1.png"
     },
     "EDO": {
-      "name": "Eidoo"
+      "name": "Eidoo",
+      "image": "/media/12318082/eiboo.png"
     },
     "BT1": {
-      "name": "Bitfinex Bitcoin Future"
+      "name": "Bitfinex Bitcoin Future",
+      "image": "/media/19633/btc.png"
     },
     "SAN": {
-      "name": "Santiment"
+      "name": "Santiment",
+      "image": "/media/1383730/san.png"
     },
     "BCC": {
-      "name": "Bitcoin Cash / BCC"
+      "name": "Bitcoin Cash / BCC",
+      "image": "/media/1383919/bch.jpg"
     },
     "BT2": {
-      "name": "Bitcoin SegWit2X"
+      "name": "Bitcoin SegWit2X",
+      "image": "/media/19633/btc.png"
     },
     "DAT": {
-      "name": "Datum"
+      "name": "Datum",
+      "image": "/media/12318265/dat.png"
     },
     "BFX": {
-      "name": "BitFinex Tokens"
+      "name": "BitFinex Tokens",
+      "image": "/media/19554/bitfinex.png"
     },
     "OMG": {
-      "name": "OmiseGo"
+      "name": "OmiseGo",
+      "image": "/media/1383814/omisego.png"
     },
     "NEO": {
-      "name": "NEO"
+      "name": "NEO",
+      "image": "/media/1383858/neo.jpg"
     },
     "IOT": {
-      "name": "IOTA"
+      "name": "IOTA",
+      "image": "/media/1383540/iota_logo.png"
     },
     "AVT": {
-      "name": "AventCoin"
+      "name": "AventCoin",
+      "image": "/media/1383599/avt.png"
     },
     "QASH": {
-      "name": "Quoine Liquid"
+      "name": "Quoine Liquid",
+      "image": "/media/15887431/qash.png"
     },
     "DATA": {
-      "name": "Streamr DATAcoin"
+      "name": "Streamr DATAcoin",
+      "image": "/media/14913438/data.png"
     },
     "ETP": {
-      "name": "Metaverse"
+      "name": "Metaverse",
+      "image": "/media/12318223/etp.png"
     },
     "BTG": {
-      "name": "Bitcoin Gold"
+      "name": "Bitcoin Gold",
+      "image": "/media/12318377/btg.png"
     },
     "RRT": {
-      "name": "Recovery Right Tokens"
+      "name": "Recovery Right Tokens",
+      "image": "/media/19554/bitfinex.png"
     },
     "GNO": {
-      "name": "Gnosis"
+      "name": "Gnosis",
+      "image": "/media/1383083/gnosis-logo.png"
     },
     "VEN": {
-      "name": "Vechain"
+      "name": "Vechain",
+      "image": "/media/12318129/ven.png"
     },
     "USDT": {
-      "name": "Tether"
+      "name": "Tether",
+      "image": "/media/1383672/usdt.png"
     },
     "MLN": {
-      "name": "Melon"
+      "name": "Melon",
+      "image": "/media/1382653/mln.png"
     }
   }
 }
