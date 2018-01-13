@@ -108,6 +108,10 @@ export default {
           </div>
         </div>
       </div>
+
+      <div class="coin-exchange">
+        Info from <strong>{{ config.default_exchange }}</strong>
+      </div>
     </q-pull-to-refresh>
   </div>
   <div v-else>
@@ -119,29 +123,31 @@ export default {
 .coin-toolbar {
   z-index: 9999; // for hide pull to refresh arrow
 }
+
 .coin-info {
   padding: 20px;
-}
-.coin-info-coin {
-  text-align: center;
 
-  &--price {
-    font-size: 1.2em;
+  &-coin {
+    text-align: center;
+
+    &--price {
+      font-size: 1.2em;
+    }
+    &--date {
+      font-size: .8em;
+      color: rgb(100, 100, 100);
+    }
   }
-  &--date {
-    font-size: .8em;
-    color: rgb(100, 100, 100);
+  &-image {
+    text-align: center;
+    img {
+      max-height: 100px;
+    }
   }
-}
-.coin-info-image {
-  text-align: center;
-  img {
-    max-height: 100px;
+  &-pair {
+    text-align: center;
+    font-size: 2em;
   }
-}
-.coin-info-pair {
-  text-align: center;
-  font-size: 2em;
 }
 
 .coin-trend {
@@ -150,11 +156,13 @@ export default {
     padding: 8px 0px;
     border: 1px solid rgb(85, 85, 85);
   }
-}
-.coin-trend-title {
+
+  &-title {
   text-align: center;
   color: rgb(85, 85, 85);
+  }
 }
+
 .coin-info-trend {
   div {
     color: rgb(85, 85, 85);
@@ -167,6 +175,11 @@ export default {
   &__to {
     float: right;
   }
+}
+
+.coin-exchange {
+  margin-top: 20px;
+  text-align: center;
 }
 </style>
 

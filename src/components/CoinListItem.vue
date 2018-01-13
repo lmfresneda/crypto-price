@@ -53,28 +53,29 @@ export default {
 .currency-list-item {
   font-size: 1.1rem;
   border-bottom: 1px solid #e9e9e9;
-}
-.currency-list-item-price {
-  margin-bottom: -5px;
-}
-.currency-list-item-volume {
-  font-size: .7rem;
-  color: grey;
-  white-space:nowrap;
-  display:inline-block;
-}
-.currency-list-item-name {
-  min-width: 27%;
-}
-.currency-list-item__1 {
-  color: #00be00;
-}
-.currency-list-item__2 {
-  color: #f00;
-}
-.currency-list-item__4,
-.currency-list-item__0 {
-  color: #3e3e3e;
+
+  &-price {
+    margin-bottom: -5px;
+  }
+  &-volume {
+    font-size: .7rem;
+    color: grey;
+    white-space:nowrap;
+    display:inline-block;
+  }
+  &-name {
+    min-width: 27%;
+  }
+  &__1 {
+    color: #00be00;
+  }
+  &__2 {
+    color: #f00;
+  }
+  &__4,
+  &__0 {
+    color: #3e3e3e;
+  }
 }
 </style>
 

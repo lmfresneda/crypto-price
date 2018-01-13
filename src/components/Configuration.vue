@@ -113,7 +113,7 @@ export default {
     margin-top: 50px;
   }
 
-  .settings-panel-title {
+  &-title {
     margin-bottom: 10px;
 
     small {
@@ -123,8 +123,5 @@ export default {
       font-size: .7rem;
     }
   }
-}
-.fixed-position {
-  position: fixed!important;
 }
 </style>

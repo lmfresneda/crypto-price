@@ -78,4 +78,8 @@ export default {
     padding: 0.4rem;
   }
 }
+
+.fixed-position {
+  position: fixed!important;
+}
 </style>
