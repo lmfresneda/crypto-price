@@ -18,6 +18,12 @@ export default {
       thisRealTime: false
     }
   },
+  created () {
+    this.$q.events.$on('app:visibility', this.handlerVisibility)
+  },
+  beforeDestroy () {
+    this.$q.events.$off('app:visibility', this.handlerVisibility)
+  },
   computed: {
     ...mapState(['config', 'data', 'error', 'realTime', 'coinIsView']),
     ...mapGetters(['getDataCoinsList'])
@@ -34,6 +40,14 @@ export default {
     }
   },
   methods: {
+    handlerVisibility (appState) {
+      if (appState === 'visible') {
+        this.fetchData()
+      } else if (this.realTime) {
+        // hay que parar el ws
+        this.$store.commit(types.DISCONNECT_SOCKET)
+      }
+    },
     async fetchData () {
       await this.$store.dispatch(types.FETCH_DATA_LIST)
     },
