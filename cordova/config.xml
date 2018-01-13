@@ -24,5 +24,7 @@
         <allow-intent href="itms-apps:*" />
     </platform>
     <preference name="DisallowOverscroll" value="true" />
+    <preference name="StatusBarBackgroundColor" value="#1A237E" />
     <engine name="android" spec="^7.0.0" />
+    <plugin name="cordova-plugin-statusbar" spec="^2.4.1" />
 </widget>
