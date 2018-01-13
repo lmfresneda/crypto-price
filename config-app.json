@@ -1,6 +1,6 @@
 {
   "name": "Crypto Price",
-  "version": "1.0",
+  "version": "0.1",
   "url_ws": "wss://streamer.cryptocompare.com/",
   "base_api": "https://min-api.cryptocompare.com/data/",
   "default_exchange": "Coinbase",
@@ -180,19 +180,5 @@
     "MLN": {
       "name": "Melon"
     }
-  },
-  "map_pricemulti": {
-    "FLAGS": "FLAG_RESPONSE",
-    "FROMSYMBOL": "FROM_CURRENCY",
-    "LASTUPDATE": "LAST_UPDATE",
-    "LASTVOLUME": "LAST_VOLUME",
-    "LASTVOLUMETO": "LAST_VOLUME_TO",
-    "MARKET": "EXCHANGE",
-    "PRICE": "PRICE",
-    "TOSYMBOL": "TO_CURRENCY",
-    "TYPE": "TYPE_REQUEST",
-    "VOLUME24HOUR": "VOLUME_24H",
-    "VOLUME24HOURTO": "VOLUME_24H_TO"
-  },
-  "map_response": "TYPE_REQUEST~EXCHANGE~FROM_CURRENCY~TO_CURRENCY~FLAG_RESPONSE~PRICE~LAST_UPDATE~LAST_VOLUME~LAST_VOLUME_TO~LAST_TRADE_ID~VOLUME_24H~VOLUME_24H_TO~MASKINT"
+  }
 }
