@@ -9,7 +9,7 @@ import filters from './filters'
 
 if (!global.fetch) global.fetch = fetch // apply fetch polyfill
 
-AddressbarColor.set('#e8e8e8')
+AddressbarColor.set('#1a237e')
 
 Vue.config.productionTip = false
 

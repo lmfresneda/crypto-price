@@ -94,8 +94,10 @@ export default {
         </div>
         <trend
           :data="dataTrend"
-          :gradient="['#FF5733', '#008AE0', '#07CA00']"
+          :gradient="['#1a237e', '#1a237e', '#1a237e']"
           auto-draw
+          :auto-draw-duration="1000"
+          :stroke-opacity=".8"
           :stroke-width="2"
           :padding="0" >
         </trend>
@@ -178,6 +180,7 @@ export default {
 }
 
 .coin-exchange {
+  color: rgb(85, 85, 85);
   margin-top: 20px;
   text-align: center;
 }

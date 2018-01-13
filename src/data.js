@@ -1,6 +1,5 @@
 import { LocalStorage } from 'quasar'
 import io from 'socket.io-client'
-import cc from 'cryptocompare'
 import config from './assets/config'
 import quasarUtil from './utils/quasar-util'
 
@@ -66,14 +65,10 @@ function getSocket (url, event, callback, forceNew = true) {
 }
 
 async function getHistoLast (from, to, exchange) {
-  return cc.histoMinute(from, to, {
-    exchange,
-    limit: 300
-  })
-}
-
-async function getPrice (from, to, exchange) {
-  return cc.price(from, to, { exchange })
+  const config = await getConfig()
+  const url = `${config.base_api}histominute?fsym=${from}&tsym=${to}&aggregate=3&e=${exchange}&limit=300`
+  const datos = await fetch(url).then((res) => res.json())
+  return datos.Data
 }
 
 async function getUrlCoinImage (coin) {
@@ -93,7 +88,6 @@ export default {
   getRealTime,
   getConfig,
   getHistoLast,
-  getPrice,
   getUrlCoinImage,
   getNameCoin
 }
