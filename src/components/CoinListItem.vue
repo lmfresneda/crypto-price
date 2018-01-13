@@ -49,7 +49,7 @@ export default {
   </q-item>
 </template>
 
-<style lang="scss" scoped>
+<style lang="scss">
 .currency-list-item {
   font-size: 1.1rem;
   border-bottom: 1px solid #e9e9e9;

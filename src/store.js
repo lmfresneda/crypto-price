@@ -39,7 +39,7 @@ const store = new Vuex.Store({
     realTime: false,
     config: {
       name: 'Crypto Price',
-      version: '1.0',
+      version: '0.1',
       url_ws: '',
       base_api: '',
       default_exchange: '',
