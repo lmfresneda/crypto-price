@@ -41,9 +41,11 @@ export default {
     console.log(this.config)
     const datos = await data.getHistoLast(
       this.from, this.to, this.config.default_exchange)
-    this.dataFrom = quasarUtil.getDateUtil().formatDate(datos[0].time * 1000, 'DD-MM-YY HH:mm:ss')
-    this.dataTo = quasarUtil.getDateUtil().formatDate(datos[datos.length - 1].time * 1000, 'DD-MM-YY HH:mm:ss')
-    this.dataTrend = datos.map(c => c.open)
+    if (datos && datos.length) {
+      this.dataFrom = quasarUtil.getDateUtil().formatDate(datos[0].time * 1000, 'DD-MM-YY HH:mm:ss')
+      this.dataTo = quasarUtil.getDateUtil().formatDate(datos[datos.length - 1].time * 1000, 'DD-MM-YY HH:mm:ss')
+      this.dataTrend = datos.map(c => c.open)
+    }
     this.image = await data.getUrlCoinImage(this.from)
     this.name = await data.getNameCoin(this.from)
   }
@@ -88,7 +90,7 @@ export default {
         </div>
       </div>
 
-      <div class="coin-trend">
+      <div class="coin-trend" v-if="dataTrend && dataTrend.length">
         <div class="coin-trend-title">
           Last trends
         </div>
@@ -108,6 +110,11 @@ export default {
           <div class="coin-info-trend__to">
             {{ dataTo }}
           </div>
+        </div>
+      </div>
+      <div v-else class="coin-trend">
+        <div class="coin-trend-title">
+          No trend data
         </div>
       </div>
 
