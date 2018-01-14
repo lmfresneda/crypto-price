@@ -85,10 +85,10 @@ export default {
         <img src="~assets/error.jpg">
       </q-card-media>
       <q-card-title>
-        An error has occurred
+        {{ $t('coinlist.error') }}
       </q-card-title>
       <q-card-main>
-        <p class="text-faded">Change the current exchange or try again later</p>
+        <p class="text-faded">{{ $t('coinlist.change_exchange') }}</p>
       </q-card-main>
     </q-card>
 
@@ -100,6 +100,7 @@ export default {
       :handler="refresher"
       pull-message=""
       refresh-message=""
+      :release-message="$t('releasetorefresh')"
       :disable="realTime">
       <q-list class="currency-list" >
         <coin-list-item

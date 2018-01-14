@@ -14,11 +14,13 @@
   },
   "dependencies": {
     "babel-runtime": "^6.25.0",
+    "locale2": "^2.1.4",
     "node-fetch": "^1.7.3",
     "quasar-extras": "0.x",
     "quasar-framework": "^0.14.4",
     "socket.io-client": "^2.0.4",
     "vue": "^2.5.13",
+    "vue-i18n": "^7.4.0",
     "vue-router": "^3.0.1",
     "vuetrend": "^0.2.3",
     "vuex": "^3.0.1"

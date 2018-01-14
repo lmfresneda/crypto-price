@@ -34,14 +34,14 @@ export default {
             color="red"
             icon="warning"
             v-if="realTime" >
-            Real Time is active
+            {{ $t('realtime_active') }}
           </q-alert>
           <span slot="subtitle" v-if="data.socket && !error">
-            <q-icon name="fiber_manual_record" color="green" /> connected to
+            <q-icon name="fiber_manual_record" color="green" /> {{ $t('connectedto') }}
               <a style="color: white" target="blank" href="https://www.cryptocompare.com">CryptoCompare</a>
           </span>
           <span slot="subtitle" v-else>
-            <q-icon name="fiber_manual_record" color="red" /> disconnected
+            <q-icon name="fiber_manual_record" color="red" /> {{ $t('disconnected') }}
           </span>
           <span slot="subtitle" style="float: right;">{{ config.version }}</span>
         </q-toolbar-title>

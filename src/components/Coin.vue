@@ -74,6 +74,7 @@ export default {
     <q-pull-to-refresh
       v-show="coinIsView"
       :handler="refresher"
+      :release-message="$t('releasetorefresh')"
       pull-message=""
       refresh-message=""
       :disable="realTime">
@@ -91,13 +92,13 @@ export default {
               size="2.5rem"/>
           </div>
           <div class="coin-info-coin--date">
-            Last update {{ getItem.LAST_UPDATE_FORMAT }}
+            {{ $t('coin.last_update') }} {{ getItem.LAST_UPDATE_FORMAT }}
           </div>
         </div>
       </div>
 
       <div class="coin-trend" v-if="dataTrend && dataTrend.length">
-        <div class="coin-trend-title">Last trends</div>
+        <div class="coin-trend-title">{{ $t('coin.last_trends') }}</div>
         <div class="coin-info-trend" v-if="priceOld">
           <div class="coin-info-trend__from">
             {{ getItem.TO_CURRENCY | getSymbol }} {{ priceOld | getPriceFormatted }}
@@ -123,17 +124,17 @@ export default {
       </div>
       <div v-else class="coin-trend">
         <div class="coin-trend-title">
-          No trend data
+          {{ $t('coin.no_trend_data') }}
         </div>
       </div>
 
       <div class="coin-exchange">
-        Info from <strong>{{ config.default_exchange }}</strong>
+        {{ $t('coin.info_from') }} <strong>{{ config.default_exchange }}</strong>
       </div>
     </q-pull-to-refresh>
   </div>
   <div v-else>
-    Loading...
+    {{ $t('loading') }}...
   </div>
 </template>
 

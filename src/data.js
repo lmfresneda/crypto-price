@@ -1,10 +1,12 @@
 import { LocalStorage } from 'quasar'
 import io from 'socket.io-client'
+import locale2 from 'locale2'
 import config from './assets/config'
 import quasarUtil from './utils/quasar-util'
 
 export const KEY_WEB_STORE_REALTIME = '__REALTIME_CRYPTO_APP__'
 export const KEY_WEB_STORE_CONFIG = '__CONFIG_CRYPTO_APP__'
+export const KEY_WEB_STORE_LANG = '__LANG_CRYPTO_APP__'
 
 function setRealTime (realTime) {
   LocalStorage.set(KEY_WEB_STORE_REALTIME, realTime)
@@ -102,10 +104,24 @@ async function getNameCoin (coin) {
   return config.coins[coin].name
 }
 
+async function getLocale () {
+  const storedLang = LocalStorage.get.item(KEY_WEB_STORE_LANG)
+  if (storedLang) return storedLang
+
+  const browserLang = (locale2 || 'en').split('-')[0]
+  LocalStorage.set(KEY_WEB_STORE_LANG, browserLang)
+  return browserLang
+}
+async function setLocale (locale) {
+  LocalStorage.set(KEY_WEB_STORE_LANG, locale)
+}
+
 export default {
   setConfig,
   getSocket,
   getConfig,
+  getLocale,
+  setLocale,
   setRealTime,
   setExchange,
   getRealTime,

@@ -2,6 +2,7 @@
 import quasarUtil from '../utils/quasar-util'
 import { mapState } from 'vuex'
 import { types } from '../store'
+import data from '../data'
 
 export default {
   props: ['onclose'],
@@ -11,13 +12,19 @@ export default {
   data () {
     return {
       exchange: null,
-      thisRealTime: false
+      thisRealTime: false,
+      defaultLanguage: ''
     }
   },
-  beforeMount () {
+  async beforeMount () {
     this.thisRealTime = this.realTime
+    this.defaultLanguage = await data.getLocale()
   },
   watch: {
+    async defaultLanguage () {
+      await data.setLocale(this.defaultLanguage)
+      this.$i18n.locale = this.defaultLanguage
+    },
     'config.default_exchange': function () {
       this.$store.commit(types.SET_EXCHANGE, this.config.default_exchange)
       this.$store.dispatch(types.FETCH_DATA_LIST)
@@ -43,9 +50,9 @@ export default {
 <template>
   <div>
     <!-- Header -->
-    <q-toolbar slot="header" color="indigo-10" class="fixed-position">
+    <q-toolbar slot="header" color="indigo-10" class="fixed-position" style="z-index: 999;">
       <q-toolbar-title>
-        <span class="config-title">Configuration</span>
+        <span class="config-title">{{ $t('configuration.title') }}</span>
         <q-icon
           class="icon-close icon-white"
           @click="closeConfig()"
@@ -54,10 +61,11 @@ export default {
     </q-toolbar>
 
     <q-list class="settings-app">
+      <!-- Exchange -->
       <div class="settings-panel">
         <div class="settings-panel-title">
-          Exchange:
-          <small>Change your preference exchange</small>
+          {{ $t('configuration.exchange') }}:
+          <small>{{ $t('configuration.change_exchange') }}</small>
         </div>
         <q-list>
           <q-item class="item-exchange" tag="label" v-for="key in Object.keys(config.exchanges)" :key="key">
@@ -71,41 +79,57 @@ export default {
         </q-list>
       </div>
 
+      <!-- Real time -->
       <div class="settings-panel">
         <p>
           <q-toggle
             v-model="thisRealTime"
             :value="realTime"
             left-label
-            label="Real Time"
+            :label="$t('realtime')"
             color="indigo-10" />
         </p>
         <q-alert
           color="red"
           icon="warning"
           v-if="realTime" >
-          Attention, real time can consume too much data. Are you sure?
+          {{ $t('configuration.advice_realtime') }}
         </q-alert>
         <q-alert
           color="indigo-5"
           icon="touch_app"
           v-if="!realTime" >
-          You can update data by dragging the coin list to bottom
+          {{ $t('configuration.advice_dragging') }}
         </q-alert>
       </div>
 
+      <!-- Lenguage -->
+      <div class="settings-panel">
+        <div class="settings-panel-title">
+          {{ $t('languages.title') }}:
+        </div>
+        <q-list>
+          <q-item class="item-exchange" tag="label" v-for="key in ['en', 'es', 'fr', 'it', 'de']" :key="key">
+            <q-item-side>
+              <q-radio v-model="defaultLanguage" :val="key" color="indigo-10"/>
+            </q-item-side>
+            <q-item-main>
+              <q-item-tile label>{{ $t(`languages.${key}`) }}</q-item-tile>
+            </q-item-main>
+          </q-item>
+        </q-list>
+      </div>
+
+      <!-- Información -->
       <div class="settings-panel" id="settings-panel-advice">
         <div class="settings-panel-title">
-          Advice:
+          {{ $t('configuration.advice') }}:
         </div>
         <q-alert
           color="dark"
           style="font-size: .8em"
           icon="info" >
-          This information is provided for informational purposes only and free of charge.
-          The provider of this application is not responsible for the information contained
-          in it and does not advise decision making based on it. For safe information go visit
-          to official channels
+          {{ $t('configuration.advice_info') }}
         </q-alert>
       </div>
     </q-list>
