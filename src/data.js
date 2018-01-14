@@ -84,6 +84,15 @@ async function getHistoLast (from, to, exchange) {
   return datos.Data
 }
 
+async function getPriceInDate (from, to, ts, exchange) {
+  const config = await getConfig()
+  const url = `${config.base_api}pricehistorical?fsym=${from}&tsyms=${to}&ts=${ts}&e=${exchange}`
+  const datos = await fetch(url, {
+    compress: false
+  }).then((res) => res.json())
+  return datos[from][to]
+}
+
 async function getUrlCoinImage (coin) {
   const config = await getConfig()
   return `${config.base_image}${config.coins[coin].image}`
@@ -94,13 +103,14 @@ async function getNameCoin (coin) {
 }
 
 export default {
-  setRealTime,
   setConfig,
-  setExchange,
   getSocket,
-  getRealTime,
   getConfig,
+  setRealTime,
+  setExchange,
+  getRealTime,
+  getNameCoin,
   getHistoLast,
-  getUrlCoinImage,
-  getNameCoin
+  getPriceInDate,
+  getUrlCoinImage
 }

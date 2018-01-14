@@ -93,6 +93,21 @@ export default {
           You can update data by dragging the coin list to bottom
         </q-alert>
       </div>
+
+      <div class="settings-panel" id="settings-panel-advice">
+        <div class="settings-panel-title">
+          Advice:
+        </div>
+        <q-alert
+          color="dark"
+          style="font-size: .8em"
+          icon="info" >
+          This information is provided for informational purposes only and free of charge.
+          The provider of this application is not responsible for the information contained
+          in it and does not advise decision making based on it. For safe information go visit
+          to official channels
+        </q-alert>
+      </div>
     </q-list>
   </div>
 </template>

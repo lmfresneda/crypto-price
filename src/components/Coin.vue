@@ -15,6 +15,7 @@ export default {
       dataTrend: [],
       dataFrom: null,
       dataTo: null,
+      priceOld: null,
       image: null,
       name: ''
     }
@@ -41,10 +42,15 @@ export default {
     console.log(this.config)
     const datos = await data.getHistoLast(
       this.from, this.to, this.config.default_exchange)
-    if (datos && datos.length) {
-      this.dataFrom = quasarUtil.getDateUtil().formatDate(datos[0].time * 1000, 'DD-MM-YY HH:mm:ss')
-      this.dataTo = quasarUtil.getDateUtil().formatDate(datos[datos.length - 1].time * 1000, 'DD-MM-YY HH:mm:ss')
-      this.dataTrend = datos.map(c => c.open)
+    if (datos && datos.length && datos.length > 1) {
+      const dateFrom = datos[0].time * 1000
+      const dateTo = datos[datos.length - 1].time * 1000
+      this.dataFrom = quasarUtil.getDateUtil().formatDate(dateFrom, 'DD-MM-YY HH:mm:ss')
+      this.dataTo = quasarUtil.getDateUtil().formatDate(dateTo, 'DD-MM-YY HH:mm:ss')
+      this.dataTrend = datos.map(c => c.close)
+      // sacamos el precio de la moneda en el momento de 'dateFrom'
+      this.priceOld =
+        await data.getPriceInDate(this.from, this.to, dateFrom, this.config.default_exchange)
     }
     this.image = await data.getUrlCoinImage(this.from)
     this.name = await data.getNameCoin(this.from)
@@ -80,7 +86,7 @@ export default {
         </div>
         <div class="coin-info-coin">
           <div :class="`coin-info-coin--price currency-list-item__${getItem.FLAG_RESPONSE}`">
-            {{ getItem.TO_CURRENCY | getSymbol }}  {{ getItem.PRICE | getPriceFormatted }} <q-icon :name="getItem.FLAG_RESPONSE | getIconByStatus"
+            {{ getItem.TO_CURRENCY | getSymbol }} {{ getItem.PRICE | getPriceFormatted }} <q-icon :name="getItem.FLAG_RESPONSE | getIconByStatus"
               :class="`currency-list-item__${getItem.FLAG_RESPONSE}`"
               size="2.5rem"/>
           </div>
@@ -91,8 +97,11 @@ export default {
       </div>
 
       <div class="coin-trend" v-if="dataTrend && dataTrend.length">
-        <div class="coin-trend-title">
-          Last trends
+        <div class="coin-trend-title">Last trends</div>
+        <div class="coin-info-trend" v-if="priceOld">
+          <div class="coin-info-trend__from">
+            {{ getItem.TO_CURRENCY | getSymbol }} {{ priceOld | getPriceFormatted }}
+          </div>
         </div>
         <trend
           :data="dataTrend"
