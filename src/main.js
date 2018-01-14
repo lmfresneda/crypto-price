@@ -7,7 +7,7 @@ import Quasar, { AddressbarColor } from 'quasar'
 import router from './router'
 import filters from './filters'
 
-if (!global.fetch) global.fetch = fetch // apply fetch polyfill
+global.fetch = fetch // apply fetch polyfill
 
 AddressbarColor.set('#1a237e')
 

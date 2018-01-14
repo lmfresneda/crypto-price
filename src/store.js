@@ -1,6 +1,5 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
-import fetch from 'isomorphic-fetch' // used for error 'gzip' header (https://github.com/bitinn/node-fetch/issues/261)
 import { date } from 'quasar'
 import CCC from './utils/ccc'
 import data from './data'
@@ -201,10 +200,14 @@ const store = new Vuex.Store({
         `${state.config.base_api}pricemultifull?tsyms=EUR&e=${state.config.default_exchange}&fsyms=${coinsToEur.join(',')}`
 
       if (coinsToUsd.length) {
-        arProm.push(fetch(urlRequestToUsd).then(res => res.json()))
+        arProm.push(fetch(urlRequestToUsd, {
+          compress: false
+        }).then(res => res.json()))
       }
       if (coinsToEur.length) {
-        arProm.push(fetch(urlRequestToEur).then(res => res.json()))
+        arProm.push(fetch(urlRequestToEur, {
+          compress: false
+        }).then(res => res.json()))
       }
       const result = await Promise.all(arProm)
 

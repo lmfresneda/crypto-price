@@ -43,18 +43,29 @@ async function getConfig () {
     console.log(fromDev)
     return fromDev
   }
+
   const configStorage = LocalStorage.get.item(KEY_WEB_STORE_CONFIG)
   // el config guardado lo mantenemos durante 2 horas, no más
   if (configStorage && !configIsInvalid(configStorage)) {
     return configStorage
   } else {
     // si no la tenemos, la pedimos
-    const data = await fetch(config.url_config).then((res) => res.json())
-    // añadimos la marca de tiempo
-    data.__date__ = Date.now()
-    // y la guardamos
-    setConfig(data)
-    return data
+    try {
+      const data = await fetch(config.url_config, {
+        compress: false
+      }).then((res) => res.json())
+      // añadimos la marca de tiempo
+      data.__date__ = Date.now()
+      // y la guardamos
+      setConfig(data)
+      return data
+    } catch (error) {
+      console.log('Error when getConfig', error)
+      const fromDev = require('../config-app')
+      console.log('** Requested config from local (error fetch) **')
+      console.log(fromDev)
+      return fromDev
+    }
   }
 }
 
@@ -67,7 +78,9 @@ function getSocket (url, event, callback, forceNew = true) {
 async function getHistoLast (from, to, exchange) {
   const config = await getConfig()
   const url = `${config.base_api}histominute?fsym=${from}&tsym=${to}&aggregate=3&e=${exchange}&limit=300`
-  const datos = await fetch(url).then((res) => res.json())
+  const datos = await fetch(url, {
+    compress: false
+  }).then((res) => res.json())
   return datos.Data
 }
 
