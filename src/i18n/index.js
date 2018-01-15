@@ -26,7 +26,13 @@ const locales = {
       info_from: 'Info from',
       no_trend_data: 'No trend data',
       last_trends: 'Last trends',
-      last_update: 'Last update'
+      last_update: 'Last update',
+      last_trades: 'Latest trades',
+      type: 'Type',
+      price: 'Price',
+      quantity: 'Quantity',
+      total: 'Total',
+      date: 'Date'
     },
     languages: {
       title: 'Change Language',
@@ -48,7 +54,7 @@ const locales = {
       title: 'Configuración',
       exchange: 'Exchange',
       change_exchange: 'Cambia tu exchange preferido',
-      advice_realtime: 'Atenció, el tiempo real puede consumir muchos datos, ¿está seguro?',
+      advice_realtime: 'Atención, el tiempo real puede consumir muchos datos, ¿está seguro?',
       advice_dragging: 'Puedes actualizar los datos arrastrando la lista de monedas hacia abajo',
       advice: 'Aviso',
       advice_info: `La información aquí vertida se ofrece con el único propósito de informar
@@ -64,7 +70,13 @@ const locales = {
       info_from: 'Info de',
       no_trend_data: 'Sin datos de tendencia',
       last_trends: 'Últimas tendencias',
-      last_update: 'Última actualización'
+      last_update: 'Última actualización',
+      last_trades: 'Últimas operaciones',
+      type: 'Tipo',
+      price: 'Precio',
+      quantity: 'Cantidad',
+      total: 'Total',
+      date: 'Fecha'
     },
     languages: {
       title: 'Cambiar idioma',
@@ -102,7 +114,13 @@ const locales = {
       info_from: 'Info from',
       no_trend_data: 'Pas de données de tendance',
       last_trends: 'Dernières tendances',
-      last_update: 'Dernière mise à jour'
+      last_update: 'Dernière mise à jour',
+      last_trades: 'Dernières opérations',
+      type: 'Type',
+      price: 'Tarif',
+      quantity: 'Quantité',
+      total: 'Total',
+      date: 'Date'
     },
     languages: {
       title: 'Changer de langue',
@@ -140,7 +158,13 @@ const locales = {
       info_from: 'Info da',
       no_trend_data: 'Nessun dato tendenze',
       last_trends: 'Ultime tendenze',
-      last_update: 'Ultimo aggiornamento'
+      last_update: 'Ultimo aggiornamento',
+      last_trades: 'Ultime operazioni',
+      type: 'Tipo',
+      price: 'Prezzo',
+      quantity: 'Quantità',
+      total: 'Totale',
+      date: 'Data'
     },
     languages: {
       title: 'Cambia lingua',
@@ -178,7 +202,13 @@ const locales = {
       info_from: 'Infos von',
       no_trend_data: 'Keine Trenddaten',
       last_trends: 'Letzte Trends',
-      last_update: 'Letztes Update'
+      last_update: 'Letztes Update',
+      last_trades: 'Neueste Trades',
+      type: 'Typ',
+      price: 'Preis',
+      quantity: 'Quantität',
+      total: 'Summe',
+      date: 'Datum'
     },
     languages: {
       title: 'Sprache ändern',

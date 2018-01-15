@@ -3,6 +3,7 @@ import quasarUtil from '../utils/quasar-util'
 import { mapState, mapGetters } from 'vuex'
 import { types } from '../store'
 import data from '../data'
+import CCC from '../utils/ccc'
 
 export default {
   props: ['from', 'to'],
@@ -13,11 +14,14 @@ export default {
   data () {
     return {
       dataTrend: [],
+      trades: [],
+      sub: null,
       dataFrom: null,
       dataTo: null,
       priceOld: null,
       image: null,
-      name: ''
+      name: '',
+      socket: null
     }
   },
   computed: {
@@ -30,12 +34,51 @@ export default {
   },
   methods: {
     closeCoin () {
+      this.closeSocket()
       this.$store.commit(types.SET_VIEW_CHILDREN, false)
       this.$router.push({ name: 'CoinList' })
     },
     async refresher (done) {
       await this.$store.dispatch(types.FETCH_DATA_LIST)
+      if (!this.realTime) this.closeSocket()
+      this.openSocket()
       done()
+    },
+    closeSocket () {
+      if (this.socket) {
+        this.socket.emit('SubRemove', { subs: [this.sub] })
+        this.socket.close()
+        this.socket.disconnect()
+        this.socket = null
+      }
+    },
+    openSocket () {
+      if (!this.socket) {
+        this.trades = []
+        this.socket = data.getSocket(this.config.url_ws, 'm', (message) => {
+          // cada trade
+          const trade = CCC.CURRENCY.getObjectFromMessage(message, CCC.CURRENCY.MAP_TRADE)
+          if (trade && trade.FLAG_RESPONSE &&
+            trade.FLAG_RESPONSE !== CCC.CURRENCY.FLAGS.UNKNOWN.toString()) {
+            if (this.trades.length >= 30) {
+              // sacar el último
+              this.trades.pop()
+            }
+            this.trades.unshift(trade)
+            if (this.trades.length >= 30 && !this.realTime) {
+              // cerramos el socket porque no estamos en tiempo real
+              this.closeSocket()
+            }
+          }
+        })
+        this.sub = CCC.CURRENCY.getKey({
+          TYPE: CCC.STATIC.TYPE.TRADE,
+          MARKET: this.config.default_exchange,
+          FROMSYMBOL: this.from,
+          TOSYMBOL: this.to
+        })
+        this.socket.emit('SubAdd', { subs: [this.sub] })
+      }
     }
   },
   async beforeMount () {
@@ -54,6 +97,9 @@ export default {
     }
     this.image = await data.getUrlCoinImage(this.from)
     this.name = await data.getNameCoin(this.from)
+
+    // abrir socket para últimos movimientos
+    this.openSocket()
   }
 }
 </script>
@@ -72,12 +118,14 @@ export default {
     </q-toolbar>
 
     <q-pull-to-refresh
+      style="padding-top: 50px;"
       v-show="coinIsView"
       :handler="refresher"
       :release-message="$t('releasetorefresh')"
       pull-message=""
       refresh-message=""
       :disable="realTime">
+
       <div class="coin-info">
         <div class="coin-info-image">
           <img :src="image" v-if="image" />
@@ -97,11 +145,14 @@ export default {
         </div>
       </div>
 
-      <div class="coin-trend" v-if="dataTrend && dataTrend.length">
+      <div v-if="dataTrend && dataTrend.length" class="coin-trend">
         <div class="coin-trend-title">{{ $t('coin.last_trends') }}</div>
         <div class="coin-info-trend" v-if="priceOld">
           <div class="coin-info-trend__from">
             {{ getItem.TO_CURRENCY | getSymbol }} {{ priceOld | getPriceFormatted }}
+          </div>
+          <div class="coin-info-trend__to">
+            {{ config.default_exchange }}
           </div>
         </div>
         <trend
@@ -110,7 +161,7 @@ export default {
           auto-draw
           :auto-draw-duration="1000"
           :stroke-opacity=".8"
-          :stroke-width="2"
+          :stroke-width="1"
           :padding="0" >
         </trend>
         <div class="coin-info-trend" v-if="dataFrom && dataTo">
@@ -128,6 +179,32 @@ export default {
         </div>
       </div>
 
+      <div class="coin-trades">
+        <div class="coin-trades-title">
+          {{ $t('coin.last_trades') }} {{ realTime ? '' : '(30 max)' }}
+        </div>
+        <table class="coin-trades-table fit">
+          <thead>
+            <tr>
+              <th>{{ $t('coin.type') }}</th>
+              <th>{{ $t('coin.price') }}</th>
+              <th>{{ $t('coin.quantity') }}</th>
+              <th>{{ $t('coin.total') }}</th>
+              <th class="gt-xs">{{ $t('coin.date') }}</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr :class="`coin-trades-table--tr_${trade.FLAG_RESPONSE}`" v-for="(trade, index) in trades" :key="index">
+              <td>{{ trade.FLAG_RESPONSE === '1' ? 'BUY' : 'SELL' }}</td>
+              <td>{{ getItem.TO_CURRENCY | getSymbol }} {{ trade.PRICE | getPriceFormatted }}</td>
+              <td>{{ trade.QUANTITY }}</td>
+              <td>{{ getItem.TO_CURRENCY | getSymbol }} {{ trade.TOTAL | getPriceFormatted }}</td>
+              <td class="gt-xs">{{ trade.TIMESTAMP | formatTsToHumanDate }}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
       <div class="coin-exchange">
         {{ $t('coin.info_from') }} <strong>{{ config.default_exchange }}</strong>
       </div>
@@ -141,6 +218,7 @@ export default {
 <style lang="scss" scoped>
 .coin-toolbar {
   z-index: 9999; // for hide pull to refresh arrow
+  position: fixed;
 }
 
 .coin-info {
@@ -177,8 +255,8 @@ export default {
   }
 
   &-title {
-  text-align: center;
-  color: rgb(85, 85, 85);
+    text-align: center;
+    color: rgb(85, 85, 85);
   }
 }
 
@@ -196,9 +274,45 @@ export default {
   }
 }
 
+.coin-trades {
+  padding: 9px;
+  margin-top: 15px;
+
+  &-title {
+    text-align: center;
+    color: rgb(85, 85, 85);
+    margin-bottom: 5px;
+  }
+
+  &-table{
+    font-size: .7em;
+    color: white;
+    border-collapse: collapse!important;
+    border: 1px solid rgb(141, 141, 141);
+
+    th {
+      text-align: left;
+      color: rgb(56, 56, 56);
+    }
+
+    td {
+      padding: 2px;
+      border: 0px;
+    }
+
+    &--tr_1 {
+      color: #00c143;
+    }
+    &--tr_2 {
+      color: #e42f2f;
+    }
+  }
+}
+
 .coin-exchange {
   color: rgb(85, 85, 85);
-  margin-top: 20px;
+  margin-top: 10px;
+  margin-bottom: 100px;
   text-align: center;
 }
 </style>

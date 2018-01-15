@@ -132,6 +132,11 @@ export default {
           {{ $t('configuration.advice_info') }}
         </q-alert>
       </div>
+
+      <!-- Agradecimientos -->
+      <div class="settings-panel">
+
+      </div>
     </q-list>
   </div>
 </template>

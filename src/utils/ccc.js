@@ -32,11 +32,13 @@ const CCC = {
       PRICEUP: 1,
       PRICEDOWN: 2,
       PRICEUNCHANGED: 4,
+      UNKNOWN: 4,
       1: 'PRICEUP',
       2: 'PRICEDOWN',
       4: 'PRICEUNCHANGED'
     },
 
+    MAP_TRADE: 'SUBSCRIPTION_ID~EXCHANGE~FROM_CURRENCY~TO_CURRENCY~FLAG_RESPONSE~TRADE_ID~TIMESTAMP~QUANTITY~PRICE~TOTAL',
     MAP_NORMAL: 'TYPE_REQUEST~EXCHANGE~FROM_CURRENCY~TO_CURRENCY~FLAG_RESPONSE~PRICE~LAST_UPDATE~LAST_VOLUME~LAST_VOLUME_TO~LAST_TRADE_ID~VOLUME_24H~VOLUME_24H_TO~MASKINT',
     MAP_NOCHANGED: 'TYPE_REQUEST~EXCHANGE~FROM_CURRENCY~TO_CURRENCY~FLAG_RESPONSE~LAST_UPDATE~LAST_VOLUME~LAST_VOLUME_TO~LAST_TRADE_ID~VOLUME_24H~VOLUME_24H_TO~MASKINT',
     MAP_PRICEMULTI: {
@@ -57,10 +59,10 @@ const CCC = {
       return `${currentObject.TYPE}~${currentObject.MARKET}~${currentObject.FROMSYMBOL}~${currentObject.TOSYMBOL}`
     },
 
-    getObjectFromMessage (message) {
+    getObjectFromMessage (message, mapping) {
       const msgSplit = message.split('~')
 
-      const fieldsChanged = CCC.CURRENCY.MAP_NORMAL.split('~')
+      const fieldsChanged = (mapping || CCC.CURRENCY.MAP_NORMAL).split('~')
 
       if (msgSplit.length <= 4) return { codeResponse: msgSplit[0] }
 
