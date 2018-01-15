@@ -2,11 +2,11 @@
 <widget id="com.es.cryptoprice" version="1.0.0" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
     <name>Crypto Price</name>
     <description>
-        An app to inform us of price of the main crypto-coins
-    </description>
+    An app to inform us of price of the main crypto-coins
+  </description>
     <author email="lmiguelfresneda@gmail.com" href="https://github.com/lmfresneda">
-      Luis Miguel F.
-    </author>
+    Luis Miguel F.
+  </author>
     <content src="index.html" />
     <plugin name="cordova-plugin-whitelist" spec="1" />
     <access origin="*" />
@@ -27,5 +27,4 @@
     <preference name="StatusBarBackgroundColor" value="#1A237E" />
     <plugin name="cordova-plugin-statusbar" spec="^2.4.1" />
     <engine name="android" spec="^7.0.0" />
-  <
 </widget>
