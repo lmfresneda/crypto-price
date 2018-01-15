@@ -1,6 +1,7 @@
 <script>
-import quasarUtil from './utils/quasar-util'
 import { mapState } from 'vuex'
+import quasarUtil from './utils/quasar-util'
+import { types } from './store'
 
 /*
  * Root component
@@ -11,7 +12,18 @@ export default {
     ...quasarUtil.getQComponents()
   },
   data () {
-    return { }
+    return {
+      thisRealTime: false
+    }
+  },
+  beforeMount () {
+    this.thisRealTime = this.realTime
+  },
+  methods: {
+    changeRealTime () {
+      this.$store.commit(types.SET_REAL_TIME, this.thisRealTime)
+      this.$store.dispatch(types.FETCH_DATA_LIST)
+    }
   },
   computed: {
     ...mapState(['data', 'realTime', 'error', 'config'])
@@ -34,7 +46,7 @@ export default {
             color="red"
             icon="warning"
             v-if="realTime" >
-            {{ $t('realtime_active') }}
+            <q-toggle :value="realTime" color="red-2" @focus="changeRealTime"/> {{ $t('realtime_active') }}
           </q-alert>
           <span slot="subtitle" v-if="data.socket && !error">
             <q-icon name="fiber_manual_record" color="green" /> {{ $t('connectedto') }}
@@ -71,7 +83,7 @@ export default {
   bottom: 50px;
   left: 0;
   width: 100%;
-  opacity: .7;
+  opacity: .9;
   font-size: .9rem;
 
   .q-alert-icon, .q-alert-content {

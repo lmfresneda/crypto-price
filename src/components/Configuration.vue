@@ -12,7 +12,7 @@ export default {
   data () {
     return {
       exchange: null,
-      thisRealTime: false,
+      // thisRealTime: false,
       defaultLanguage: ''
     }
   },
@@ -29,11 +29,6 @@ export default {
       this.$store.commit(types.SET_EXCHANGE, this.config.default_exchange)
       this.$store.dispatch(types.FETCH_DATA_LIST)
     },
-    thisRealTime () {
-      if (this.thisRealTime === this.realTime) return
-      this.$store.commit(types.SET_REAL_TIME, this.thisRealTime)
-      this.$store.dispatch(types.FETCH_DATA_LIST)
-    }
   },
   computed: {
     ...mapState(['config', 'realTime'])
@@ -42,6 +37,10 @@ export default {
     closeConfig () {
       this.$store.commit(types.SET_VIEW_CHILDREN, false)
       this.$router.go(-1)
+    },
+    changeRealTime () {
+      this.$store.commit(types.SET_REAL_TIME, !this.realTime)
+      this.$store.dispatch(types.FETCH_DATA_LIST)
     }
   }
 }
@@ -83,10 +82,10 @@ export default {
       <div class="settings-panel">
         <p>
           <q-toggle
-            v-model="thisRealTime"
-            :value="realTime"
+            :value.sync="realTime"
             left-label
             :label="$t('realtime')"
+            @focus="changeRealTime"
             color="indigo-10" />
         </p>
         <q-alert
@@ -134,8 +133,9 @@ export default {
       </div>
 
       <!-- Agradecimientos -->
-      <div class="settings-panel">
-
+      <div class="settings-panel settings-panel-thanks">
+        <p>Built with <a href="http://quasar-framework.org" target="blank">Quasar Framework</a></p>
+        <p>Data thanks to <a href="https://www.cryptocompare.com" target="blank">CryptoCompare</a></p>
       </div>
     </q-list>
   </div>
@@ -166,6 +166,15 @@ export default {
       color: rgb(155, 155, 155);
       font-size: .7rem;
     }
+  }
+}
+
+.settings-panel-thanks {
+  margin-top: 70px;
+  > p {
+    text-align: center;
+    font-size: .8em;
+    line-height: 9px;
   }
 }
 </style>
