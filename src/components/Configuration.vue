@@ -28,7 +28,7 @@ export default {
     'config.default_exchange': function () {
       this.$store.commit(types.SET_EXCHANGE, this.config.default_exchange)
       this.$store.dispatch(types.FETCH_DATA_LIST)
-    },
+    }
   },
   computed: {
     ...mapState(['config', 'realTime'])

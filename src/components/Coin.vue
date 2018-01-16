@@ -157,7 +157,7 @@ export default {
         </div>
         <trend
           :data="dataTrend"
-          :gradient="['#1a237e', '#1a237e', '#1a237e']"
+          :gradient="['#ff00ff', '#00ffff', '#ffff00']"
           auto-draw
           :auto-draw-duration="1000"
           :stroke-opacity=".8"
@@ -186,6 +186,7 @@ export default {
         <table class="coin-trades-table fit">
           <thead>
             <tr>
+              <th class="gt-sm">ID</th>
               <th>{{ $t('coin.type') }}</th>
               <th>{{ $t('coin.price') }}</th>
               <th>{{ $t('coin.quantity') }}</th>
@@ -195,6 +196,7 @@ export default {
           </thead>
           <tbody>
             <tr :class="`coin-trades-table--tr_${trade.FLAG_RESPONSE}`" v-for="(trade, index) in trades" :key="index">
+              <td class="gt-sm">{{ trade.TRADE_ID }}</td>
               <td>{{ trade.FLAG_RESPONSE === '1' ? 'BUY' : 'SELL' }}</td>
               <td>{{ getItem.TO_CURRENCY | getSymbol }} {{ trade.PRICE | getPriceFormatted }}</td>
               <td>{{ trade.QUANTITY }}</td>
@@ -252,6 +254,7 @@ export default {
   svg {
     padding: 8px 0px;
     border: 1px solid rgb(85, 85, 85);
+    background-color: #131313;
   }
 
   &-title {
@@ -294,6 +297,9 @@ export default {
       text-align: left;
       color: rgb(56, 56, 56);
     }
+
+    tr:nth-child(even) {background: #f1f1f1}
+    tr:nth-child(odd) {background: #fffdfd}
 
     td {
       padding: 2px;
