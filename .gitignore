@@ -7,3 +7,4 @@ cordova/platforms
 cordova/plugins
 cordova/www
 *.keystore
+/cordova/build.json
