@@ -95,7 +95,7 @@ export default {
       this.priceOld =
         await data.getPriceInDate(this.from, this.to, dateFrom, this.config.default_exchange)
     }
-    this.image = await data.getUrlCoinImage(this.from)
+    // this.image = await data.getUrlCoinImage(this.from)
     this.name = await data.getNameCoin(this.from)
 
     // abrir socket para últimos movimientos
@@ -128,7 +128,7 @@ export default {
 
       <div class="coin-info">
         <div class="coin-info-image">
-          <img :src="image" v-if="image" />
+          <img :src="`statics/coins/${from}.png`" />
         </div>
         <div class="coin-info-pair">
           {{ name }}
