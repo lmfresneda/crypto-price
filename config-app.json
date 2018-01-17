@@ -1,185 +1,531 @@
 {
-  "name": "Crypto Price",
-  "version": "1.0-beta",
-  "url_ws": "wss://streamer.cryptocompare.com/",
-  "base_api": "https://min-api.cryptocompare.com/data/",
-  "base_image": "https://www.cryptocompare.com",
-  "default_exchange": "Coinbase",
-  "exchanges": {
-    "Bitstamp": [
-      "BTC|USD,EUR",
-      "ETH|USD,EUR",
-      "LTC|USD,EUR",
-      "XRP|USD,EUR"
-    ],
-    "Coinbase": [
-      "BTC|USD,EUR",
-      "ETH|USD,EUR",
-      "LTC|USD,EUR"
-    ],
-    "Poloniex": [
-      "DASH|USD",
-      "LTC|USD",
-      "NXT|USD",
-      "ETC|USD",
-      "ZEC|USD",
-      "XLM|USD",
-      "BTC|USD",
-      "REP|USD",
-      "XMR|USD",
-      "ETH|USD",
-      "HYP|USD",
-      "BCH|USD",
-      "XRP|USD"
-    ],
-    "Bitfinex": [
-      "EOS|USD",
-      "XRP|USD",
-      "EDO|USD",
-      "BT1|USD",
-      "SAN|USD",
-      "BCC|USD",
-      "ZEC|USD",
-      "BT2|USD",
-      "BFX|USD",
-      "OMG|USD",
-      "BCH|USD",
-      "ETH|USD",
-      "NEO|USD",
-      "IOT|USD",
-      "AVT|USD",
-      "ETC|USD",
-      "QASH|USD",
-      "DATA|USD",
-      "LTC|USD",
-      "ETP|USD",
-      "BTC|USD,EUR",
-      "XMR|USD",
-      "BTG|USD",
-      "RRT|USD",
-      "DASH|USD"
-    ],
-    "Kraken": [
-      "BCH|USD,EUR",
-      "EOS|USD,EUR",
-      "ETH|USD,EUR",
-      "GNO|USD,EUR",
-      "BTC|USD,EUR",
-      "XRP|USD,EUR",
-      "ETC|USD,EUR",
-      "LTC|USD,EUR",
-      "REP|USD,EUR",
-      "VEN|USD,EUR",
-      "ZEC|USD,EUR",
-      "USDT|USD",
-      "XMR|USD,EUR",
-      "MLN|EUR",
-      "DASH|USD,EUR",
-      "XLM|USD,EUR"
-    ]
-  },
-  "coins": {
-    "BTC": {
-      "name": "Bitcoin"
+    "name": "Crypto Price",
+    "version": "1.0",
+    "url_ws": "wss://streamer.cryptocompare.com/",
+    "base_api": "https://min-api.cryptocompare.com/data/",
+    "base_image": "https://www.cryptocompare.com",
+    "default_exchange": "Coinbase",
+    "exchanges": {
+      "Cryptsy": [
+          "RDD|USD",
+          "LTC|USD",
+          "PPC|USD",
+          "ETH|USD",
+          "XPY|USD",
+          "BTC|USD,EUR",
+          "NBT|USD",
+          "DASH|USD",
+          "NXT|USD",
+          "FTC|USD",
+          "DOGE|USD",
+          "XRP|USD",
+          "ZRC|USD"
+      ],
+      "BTCChina": [
+          "BTC|USD"
+      ],
+      "Bitstamp": [
+          "LTC|USD,EUR",
+          "XRP|USD,EUR",
+          "ETH|USD,EUR",
+          "BTC|USD,EUR",
+          "BCH|USD,EUR"
+      ],
+      "BTER": [
+          "DOGE|USD"
+      ],
+      "OKCoin": [
+          "BTC|USD",
+          "LTC|USD",
+          "ETH|USD",
+          "ETC|USD",
+          "BCH|USD"
+      ],
+      "Coinbase": [
+          "LTC|USD,EUR",
+          "ETH|USD,EUR",
+          "BCH|USD",
+          "BTC|USD,EUR"
+      ],
+      "Poloniex": [
+          "REP|USD",
+          "BCH|USD",
+          "LTC|USD",
+          "BTC|USD",
+          "NXT|USD",
+          "ETH|USD",
+          "ETC|USD",
+          "ZEC|USD",
+          "XMR|USD",
+          "DASH|USD",
+          "HYP|USD",
+          "MMXIV|USD",
+          "XRP|USD",
+          "XLM|USD"
+      ],
+      "Cexio": [
+          "BTG|USD,EUR",
+          "LTC|USD,EUR",
+          "ETH|USD,EUR",
+          "XRP|USD,EUR",
+          "BTC|USD,EUR",
+          "GHS|USD",
+          "DASH|USD,EUR",
+          "DOGE|USD,EUR",
+          "BCH|USD,EUR",
+          "ZEC|USD,EUR"
+      ],
+      "BTCE": [
+          "DASH|USD,EUR",
+          "BTC|USD,EUR",
+          "LTC|USD,EUR",
+          "NMC|USD",
+          "ETH|USD,EUR",
+          "NVC|USD",
+          "PPC|USD"
+      ],
+      "BitTrex": [
+          "OMG|USD",
+          "XMR|USD",
+          "NEO|USD",
+          "ADA|USD",
+          "ZEC|USD",
+          "XRP|USD",
+          "ETC|USD",
+          "BTC|USD",
+          "BCH|USD",
+          "ETH|USD",
+          "DASH|USD",
+          "LTC|USD",
+          "BTG|USD",
+          "XVG|USD",
+          "NXT|USD"
+      ],
+      "Kraken": [
+          "XMR|USD,EUR",
+          "BTC|USD,EUR",
+          "REP|USD,EUR",
+          "VEN|USD,EUR",
+          "ZEC|USD,EUR",
+          "DASH|USD,EUR",
+          "XRP|USD,EUR",
+          "LTC|USD,EUR",
+          "EOS|USD,EUR",
+          "BCH|USD,EUR",
+          "USDT|USD",
+          "ETC|USD,EUR",
+          "ETH|USD,EUR",
+          "GNO|USD,EUR",
+          "MLN|EUR",
+          "XLM|USD,EUR"
+      ],
+      "Bitfinex": [
+          "IOT|USD,EUR",
+          "SAN|USD",
+          "BTC|USD,EUR",
+          "BCH|USD",
+          "ZEC|USD",
+          "NEO|USD",
+          "EOS|USD",
+          "XMR|USD",
+          "OMG|USD",
+          "BT1|USD",
+          "ETP|USD",
+          "QTUM|USD",
+          "EDO|USD",
+          "LTC|USD",
+          "SNT|USD",
+          "GNT|USD",
+          "BFX|USD",
+          "XRP|USD",
+          "BTG|USD",
+          "BT2|USD",
+          "AVT|USD",
+          "DASH|USD",
+          "DATA|USD",
+          "ETH|USD",
+          "YOYOW|USD",
+          "RRT|USD",
+          "ETC|USD",
+          "QASH|USD"
+      ],
+      "Yacuna": [
+          "CLAM|EUR",
+          "LTC|EUR",
+          "DOGE|EUR",
+          "BTC|EUR"
+      ],
+      "LocalBitcoins": [
+          "BTC|USD,EUR"
+      ],
+      "itBit": [
+          "BTC|USD,EUR"
+      ],
+      "Coinfloor": [
+          "BTC|USD,EUR"
+      ],
+      "Huobi": [
+          "BTC|USD"
+      ],
+      "LakeBTC": [
+          "BTC|USD,EUR"
+      ],
+      "Coinsetter": [
+          "BTC|USD"
+      ],
+      "MonetaGo": [
+          "BTC|USD,EUR"
+      ],
+      "Gatecoin": [
+          "ETH|USD,EUR",
+          "BTC|USD,EUR",
+          "LTC|USD,EUR",
+          "SNT|USD",
+          "DGD|USD"
+      ],
+      "Gemini": [
+          "BTC|USD",
+          "ETH|USD"
+      ],
+      "CCEDK": [
+          "QORA|USD,EUR",
+          "NBT|USD,EUR",
+          "DOGE|USD,EUR",
+          "LTC|USD,EUR",
+          "DASH|USD,EUR",
+          "NXT|USD,EUR",
+          "NSR|USD,EUR",
+          "BITUSD|USD",
+          "OBITS|USD,EUR",
+          "BTC|USD,EUR",
+          "PPC|USD,EUR",
+          "XRP|EUR",
+          "BLK|USD,EUR",
+          "BTS|USD,EUR"
+      ],
+      "Exmo": [
+          "DASH|USD",
+          "BCH|USD",
+          "ETH|USD,EUR",
+          "USDT|USD",
+          "LTC|USD,EUR",
+          "BTC|USD,EUR",
+          "DOGE|USD,EUR",
+          "ETC|USD",
+          "ZEC|USD,EUR",
+          "XRP|USD",
+          "XMR|USD,EUR"
+      ],
+      "BitBay": [
+          "LTC|USD,EUR",
+          "BCH|USD,EUR",
+          "LSK|USD,EUR",
+          "BTC|USD,EUR",
+          "ETH|USD,EUR"
+      ],
+      "QuadrigaCX": [
+          "BTC|USD"
+      ],
+      "BitSquare": [
+          "BTC|USD,EUR",
+          "LTC|EUR",
+          "DASH|EUR"
+      ],
+      "Paymium": [
+          "BTC|EUR"
+      ],
+      "TheRockTrading": [
+          "LTC|USD,EUR",
+          "PPC|EUR",
+          "ETH|EUR",
+          "BTC|USD,EUR",
+          "XRP|USD,EUR"
+      ],
+      "bitFlyer": [
+          "BTC|USD"
+      ],
+      "Quoine": [
+          "BTC|USD,EUR",
+          "NEO|USD,EUR",
+          "DASH|USD,EUR",
+          "ETH|USD,EUR",
+          "BCH|USD",
+          "QASH|USD,EUR",
+          "QTUM|USD,EUR"
+      ],
+      "BitMarket": [
+          "BTC|EUR"
+      ],
+      "Lykke": [
+          "BTC|USD,EUR",
+          "SLR|USD,EUR",
+          "LKK|USD,EUR",
+          "ETH|USD,EUR",
+          "XPD|USD",
+          "TIME|USD,EUR",
+          "XAU|USD"
+      ],
+      "Remitano": [
+          "BTC|USD",
+          "ETH|USD"
+      ],
+      "Coinroom": [
+          "DASH|USD,EUR",
+          "BTC|USD,EUR",
+          "ETH|USD,EUR",
+          "BCH|USD,EUR",
+          "PIVX|USD,EUR",
+          "LTC|USD,EUR",
+          "XZC|USD,EUR",
+          "XMR|USD,EUR"
+      ],
+      "Abucoins": [
+          "BTC|USD,EUR"
+      ],
+      "TrustDEX": [
+          "BTC|USD"
+      ]
     },
-    "ETH": {
-      "name": "Ethereum"
-    },
-    "LTC": {
-      "name": "Litecoin"
-    },
-    "XRP": {
-      "name": "Ripple"
-    },
-    "DASH": {
-      "name": "DigitalCash"
-    },
-    "NXT": {
-      "name": "Nxt"
-    },
-    "ETC": {
-      "name": "Ethereum Classic"
-    },
-    "ZEC": {
-      "name": "ZCash"
-    },
-    "XLM": {
-      "name": "Stellar"
-    },
-    "REP": {
-      "name": "Augur"
-    },
-    "XMR": {
-      "name": "Monero"
-    },
-    "HYP": {
-      "name": "Hyperstake"
-    },
-    "BCH": {
-      "name": "Bitcoin Cash / BCC"
-    },
-    "EOS": {
-      "name": "EOS"
-    },
-    "EDO": {
-      "name": "Eidoo"
-    },
-    "BT1": {
-      "name": "Bitfinex Bitcoin Future"
-    },
-    "SAN": {
-      "name": "Santiment"
-    },
-    "BCC": {
-      "name": "Bitcoin Cash / BCC"
-    },
-    "BT2": {
-      "name": "Bitcoin SegWit2X"
-    },
-    "DAT": {
-      "name": "Datum"
-    },
-    "BFX": {
-      "name": "BitFinex Tokens"
-    },
-    "OMG": {
-      "name": "OmiseGo"
-    },
-    "NEO": {
-      "name": "NEO"
-    },
-    "IOT": {
-      "name": "IOTA"
-    },
-    "AVT": {
-      "name": "AventCoin"
-    },
-    "QASH": {
-      "name": "Quoine Liquid"
-    },
-    "DATA": {
-      "name": "Streamr DATAcoin"
-    },
-    "ETP": {
-      "name": "Metaverse"
-    },
-    "BTG": {
-      "name": "Bitcoin Gold"
-    },
-    "RRT": {
-      "name": "Recovery Right Tokens"
-    },
-    "GNO": {
-      "name": "Gnosis"
-    },
-    "VEN": {
-      "name": "Vechain"
-    },
-    "USDT": {
-      "name": "Tether"
-    },
-    "MLN": {
-      "name": "Melon"
+    "coins": {
+      "ADA": {
+        "name": "Cardano"
+      },
+      "AVT": {
+        "name": "AventCoin"
+      },
+      "B@": {
+        "name": "BankCoin"
+      },
+      "BCH": {
+        "name": "Bitcoin Cash / BCC"
+      },
+      "BFX": {
+        "name": "BitFinex Tokens"
+      },
+      "BITUSD": {
+        "name": "bitUSD"
+      },
+      "BLK": {
+        "name": "BlackCoin"
+      },
+      "BT1": {
+        "name": "Bitfinex Bitcoin Future"
+      },
+      "BT2": {
+        "name": "Bitcoin SegWit2X"
+      },
+      "BTC": {
+        "name": "Bitcoin"
+      },
+      "BTG": {
+        "name": "Bitcoin Gold"
+      },
+      "BTS": {
+        "name": "Bitshares"
+      },
+      "CLAM": {
+        "name": "CLAMS"
+      },
+      "COE": {
+        "name": "CoEval"
+      },
+      "DASH": {
+        "name": "DigitalCash"
+      },
+      "DATA": {
+        "name": "Streamr DATAcoin"
+      },
+      "DGD": {
+        "name": "Digix DAO"
+      },
+      "DOGE": {
+        "name": "Dogecoin"
+      },
+      "EDO": {
+        "name": "Eidoo"
+      },
+      "EOS": {
+        "name": "EOS"
+      },
+      "ETC": {
+        "name": "Ethereum Classic"
+      },
+      "ETH": {
+        "name": "Ethereum"
+      },
+      "ETP": {
+        "name": "Metaverse"
+      },
+      "ETT": {
+        "name": "EncryptoTel"
+      },
+      "FTC": {
+        "name": "FeatherCoin"
+      },
+      "GHS": {
+        "name": "Giga Hash"
+      },
+      "GNO": {
+        "name": "Gnosis"
+      },
+      "GNT": {
+        "name": "Golem Network Token"
+      },
+      "HYP": {
+        "name": "Hyperstake"
+      },
+      "IOT": {
+        "name": "IOTA"
+      },
+      "LKK": {
+        "name": "Lykke"
+      },
+      "LSK": {
+        "name": "Lisk"
+      },
+      "LTC": {
+        "name": "Litecoin"
+      },
+      "MER": {
+        "name": "Mercury"
+      },
+      "MGO": {
+        "name": "MobileGo"
+      },
+      "MLN": {
+        "name": "Melon"
+      },
+      "MMXIV": {
+        "name": "MaieutiCoin"
+      },
+      "MNY": {
+        "name": "Monkey"
+      },
+      "MRT": {
+        "name": "MinersReward"
+      },
+      "NBT": {
+        "name": "NuBits"
+      },
+      "NEO": {
+        "name": "NEO"
+      },
+      "NMC": {
+        "name": "NameCoin"
+      },
+      "NSR": {
+        "name": "NuShares"
+      },
+      "NVC": {
+        "name": "NovaCoin"
+      },
+      "NXT": {
+        "name": "Nxt"
+      },
+      "OBITS": {
+        "name": "Obits Coin"
+      },
+      "OCL": {
+        "name": "Oceanlab"
+      },
+      "OMG": {
+        "name": "OmiseGo"
+      },
+      "PBT": {
+        "name": "Primalbase"
+      },
+      "PIVX": {
+        "name": "Private Instant Verified Transaction"
+      },
+      "PPC": {
+        "name": "PeerCoin"
+      },
+      "QASH": {
+        "name": "Quoine Liquid"
+      },
+      "QORA": {
+        "name": "QoraCoin"
+      },
+      "QTUM": {
+        "name": "QTUM"
+      },
+      "RDD": {
+        "name": "ReddCoin"
+      },
+      "REP": {
+        "name": "Augur"
+      },
+      "RRT": {
+        "name": "Recovery Right Tokens"
+      },
+      "SAN": {
+        "name": "Santiment"
+      },
+      "SLR": {
+        "name": "SolarCoin"
+      },
+      "SNT": {
+        "name": "Status Network Token"
+      },
+      "THNX": {
+        "name": "ThankYou"
+      },
+      "TIME": {
+        "name": "Time"
+      },
+      "USDT": {
+        "name": "Tether"
+      },
+      "VEN": {
+        "name": "Vechain"
+      },
+      "WAVES": {
+        "name": "Waves"
+      },
+      "WCT": {
+        "name": "Waves Community Token"
+      },
+      "WGO": {
+        "name": "WavesGO"
+      },
+      "WGR": {
+        "name": "Wagerr"
+      },
+      "WNET": {
+        "name": "Wavesnode.net"
+      },
+      "XAU": {
+        "name": "XauCoin"
+      },
+      "XLM": {
+        "name": "Stellar"
+      },
+      "XMR": {
+        "name": "Monero"
+      },
+      "XPD": {
+        "name": "PetroDollar"
+      },
+      "XPY": {
+        "name": "PayCoin"
+      },
+      "XRP": {
+        "name": "Ripple"
+      },
+      "XVG": {
+        "name": "Verge"
+      },
+      "XZC": {
+        "name": "ZCoin"
+      },
+      "YOYOW": {
+        "name": "Yoyow"
+      },
+      "ZEC": {
+        "name": "ZCash"
+      },
+      "ZRC": {
+        "name": "ZrCoin"
+      }
     }
-  }
 }
