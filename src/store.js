@@ -27,7 +27,7 @@ function complete (curr, state) {
   curr.FROM_CURRENCY_NAME = state.config.coins[curr.FROM_CURRENCY].name
   curr.CODE = `${curr.FROM_CURRENCY}${curr.TO_CURRENCY}`
   curr.LAST_UPDATE_FORMAT = date.formatDate(parseInt(curr.LAST_UPDATE) * 1000, 'DD/MM/YYYY HH:mm:ss')
-  if (!curr.LAST_UPDATE_FORMAT) date.formatDate(Date.now() * 1000, 'DD/MM/YYYY HH:mm:ss')
+  // if (!curr.LAST_UPDATE_FORMAT) date.formatDate(Date.now() * 1000, 'DD/MM/YYYY HH:mm:ss')
   return curr
 }
 
@@ -108,7 +108,10 @@ const store = new Vuex.Store({
           // const anterior = state.data.list.find(d => d.CODE === dataComplete.CODE)
           dataComplete.PRICE = anterior ? anterior.PRICE : dataComplete.PRICE
         }
-
+        if (dataComplete.LAST_UPDATE) {
+          dataComplete.IS_OLD =
+            date.getDateDiff(new Date(), new Date(parseInt(dataComplete.LAST_UPDATE) * 1000), 'hours') > 3
+        }
         Vue.set(state.data.coins, dataComplete.CODE, dataComplete)
       }
     },
@@ -126,6 +129,12 @@ const store = new Vuex.Store({
       resultObj.forEach((res) => {
         const obj = CCC.CURRENCY.getObjectFromObject(res)
         const objComplete = complete(obj, state)
+        // revisar si es muy antiguo el dato
+
+        if (objComplete.LAST_UPDATE) {
+          objComplete.IS_OLD =
+            date.getDateDiff(new Date(), new Date(parseInt(objComplete.LAST_UPDATE) * 1000), 'hours') > 3
+        }
         Vue.set(state.data.coins, objComplete.CODE, objComplete)
       })
     },

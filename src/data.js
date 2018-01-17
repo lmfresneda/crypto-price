@@ -28,6 +28,10 @@ function setExchange (exchange) {
   }
 }
 
+function getBaseUrlImages () {
+  return config.base_url_images
+}
+
 // indica si una configuración es inválida o antigua
 function configIsInvalid (config) {
   return !config || // si no existe
@@ -39,14 +43,18 @@ function configIsInvalid (config) {
 }
 
 async function getConfig () {
+  const configStorage = LocalStorage.get.item(KEY_WEB_STORE_CONFIG)
+
   if (process.env.NODE_ENV === 'development') {
     const fromDev = require('../config-app')
+    if (configStorage && configStorage.default_exchange) {
+      fromDev.default_exchange = configStorage.default_exchange
+    }
     console.log('** Requested config from local (development) **')
     console.log(fromDev)
     return fromDev
   }
 
-  const configStorage = LocalStorage.get.item(KEY_WEB_STORE_CONFIG)
   // el config guardado lo mantenemos durante 2 horas, no más
   if (configStorage && !configIsInvalid(configStorage)) {
     return configStorage
@@ -58,6 +66,10 @@ async function getConfig () {
       }).then((res) => res.json())
       // añadimos la marca de tiempo
       data.__date__ = Date.now()
+      // si teníamos guardado config, nos tenemos qe quedar con el default_exchange
+      if (configStorage && configStorage.default_exchange) {
+        data.default_exchange = configStorage.default_exchange
+      }
       // y la guardamos
       setConfig(data)
       return data
@@ -128,5 +140,6 @@ export default {
   getNameCoin,
   getHistoLast,
   getPriceInDate,
-  getUrlCoinImage
+  getUrlCoinImage,
+  getBaseUrlImages
 }

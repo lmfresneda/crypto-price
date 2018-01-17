@@ -35,13 +35,16 @@ export default {
         {{ config.default_exchange }}
       </small>
     </q-item-side>
-    <q-item-main :class="`currency-list-item__${item.FLAG_RESPONSE}`">
+    <q-item-main :class="item.IS_OLD ? 'currency-list-item__old' : `currency-list-item__${item.FLAG_RESPONSE}`">
       <q-item-tile class="currency-list-item-price" label>
         {{ item.TO_CURRENCY | getSymbol }} {{ item.PRICE | getPriceFormatted }}
       </q-item-tile>
       <small class="currency-list-item-volume light-paragraph">{{ item.LAST_UPDATE_FORMAT }}</small>
     </q-item-main>
-    <q-item-side right>
+    <q-item-side right v-if="item.IS_OLD">
+      <span class="currency-list-item-label-old">{{ $t('old') }}</span>
+    </q-item-side>
+    <q-item-side right v-else>
       <q-icon :name="item.FLAG_RESPONSE | getIconByStatus"
         :class="`currency-list-item__${item.FLAG_RESPONSE}`"
         size="2.5rem"/>
@@ -52,14 +55,14 @@ export default {
 <style lang="scss">
 .currency-list-item {
   font-size: 1.1rem;
-  border-bottom: 1px solid #e9e9e9;
+  border-bottom: 1px solid rgb(233, 233, 233);
 
   &-price {
     margin-bottom: -5px;
   }
   &-volume {
     font-size: .7rem;
-    color: grey;
+    color: rgb(128, 128, 128);
     white-space:nowrap;
     display:inline-block;
   }
@@ -67,14 +70,26 @@ export default {
     min-width: 27%;
   }
   &__1 {
-    color: #00be00;
+    color: rgb(3, 179, 3);
   }
   &__2 {
-    color: #f00;
+    color: rgb(255, 0, 0);
   }
   &__4,
   &__0 {
-    color: #3e3e3e;
+    color: rgb(62, 62, 62);
+  }
+  &__old {
+    color: rgb(128, 128, 128);
+  }
+  &-label-old {
+    border-radius: 2px;
+    padding: 5px;
+    font-size: .8em;
+    color: rgb(247, 247, 0);
+    background-color: rgb(240, 0, 0);
+    min-width: 50px;
+    text-align: center;
   }
 }
 </style>

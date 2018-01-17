@@ -21,7 +21,8 @@ export default {
       priceOld: null,
       image: null,
       name: '',
-      socket: null
+      socket: null,
+      coinImage: null
     }
   },
   computed: {
@@ -99,6 +100,7 @@ export default {
     }
     // this.image = await data.getUrlCoinImage(this.from)
     this.name = await data.getNameCoin(this.from)
+    this.coinImage = `${data.getBaseUrlImages()}${this.from}.png`
 
     // abrir socket para últimos movimientos
     this.openSocket()
@@ -130,7 +132,7 @@ export default {
 
       <div class="coin-info">
         <div class="coin-info-image">
-          <img :src="`statics/coins/${from}.png`" />
+          <img :src="coinImage" />
         </div>
         <div class="coin-info-pair">
           {{ name }}
@@ -143,6 +145,11 @@ export default {
           </div>
           <div class="coin-info-coin--date">
             {{ $t('coin.last_update') }} {{ getItem.LAST_UPDATE_FORMAT }}
+          </div>
+          <div class="coin-info-coin--date_old" v-if="getItem.IS_OLD">
+            <span>
+              {{ $t('old') }}
+            </span>
           </div>
         </div>
       </div>
@@ -234,6 +241,16 @@ export default {
     &--date {
       font-size: .8em;
       color: rgb(100, 100, 100);
+    }
+    &--date_old {
+      margin-top: 5px;
+      span {
+        font-size: .9em;
+        color: #efef00;
+        background-color: #e42f2f;
+        padding: 3px;
+        border-radius: 2px;
+      }
     }
   }
   &-image {
