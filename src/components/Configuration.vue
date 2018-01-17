@@ -12,9 +12,11 @@ export default {
   data () {
     return {
       exchange: null,
-      // thisRealTime: false,
       defaultLanguage: ''
     }
+  },
+  beforeDestroy () {
+    this.$store.commit(types.SET_VIEW_CHILDREN, false)
   },
   async beforeMount () {
     this.thisRealTime = this.realTime
@@ -35,7 +37,6 @@ export default {
   },
   methods: {
     closeConfig () {
-      this.$store.commit(types.SET_VIEW_CHILDREN, false)
       this.$router.go(-1)
     },
     changeRealTime () {

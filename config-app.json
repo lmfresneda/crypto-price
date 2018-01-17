@@ -1,6 +1,6 @@
 {
   "name": "Crypto Price",
-  "version": "0.1",
+  "version": "1.0-beta",
   "url_ws": "wss://streamer.cryptocompare.com/",
   "base_api": "https://min-api.cryptocompare.com/data/",
   "base_image": "https://www.cryptocompare.com",

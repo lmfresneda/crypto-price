@@ -34,8 +34,6 @@ export default {
   },
   methods: {
     closeCoin () {
-      this.closeSocket()
-      this.$store.commit(types.SET_VIEW_CHILDREN, false)
       this.$router.push({ name: 'CoinList' })
     },
     async refresher (done) {
@@ -80,6 +78,10 @@ export default {
         this.socket.emit('SubAdd', { subs: [this.sub] })
       }
     }
+  },
+  beforeDestroy () {
+    this.closeSocket()
+    this.$store.commit(types.SET_VIEW_CHILDREN, false)
   },
   async beforeMount () {
     console.log(this.config)
