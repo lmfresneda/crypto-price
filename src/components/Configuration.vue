@@ -61,23 +61,6 @@ export default {
     </q-toolbar>
 
     <q-list class="settings-app">
-      <!-- Exchange -->
-      <div class="settings-panel">
-        <div class="settings-panel-title">
-          {{ $t('configuration.exchange') }}:
-          <small>{{ $t('configuration.change_exchange') }}</small>
-        </div>
-        <q-list>
-          <q-item class="item-exchange" tag="label" v-for="key in Object.keys(config.exchanges)" :key="key">
-            <q-item-side>
-              <q-radio v-model="config.default_exchange" :val="key" color="indigo-10"/>
-            </q-item-side>
-            <q-item-main>
-              <q-item-tile label>{{ key }}</q-item-tile>
-            </q-item-main>
-          </q-item>
-        </q-list>
-      </div>
 
       <!-- Real time -->
       <div class="settings-panel">
@@ -120,6 +103,24 @@ export default {
         </q-list>
       </div>
 
+      <!-- Exchange -->
+      <div class="settings-panel">
+        <div class="settings-panel-title">
+          {{ $t('configuration.exchange') }}:
+          <small>{{ $t('configuration.change_exchange') }}</small>
+        </div>
+        <q-list>
+          <q-item class="item-exchange" tag="label" v-for="key in Object.keys(config.exchanges).sort()" :key="key">
+            <q-item-side>
+              <q-radio v-model="config.default_exchange" :val="key" color="indigo-10"/>
+            </q-item-side>
+            <q-item-main>
+              <q-item-tile label>{{ key }}</q-item-tile>
+            </q-item-main>
+          </q-item>
+        </q-list>
+      </div>
+
       <!-- Información -->
       <div class="settings-panel" id="settings-panel-advice">
         <div class="settings-panel-title">
@@ -137,6 +138,13 @@ export default {
       <div class="settings-panel settings-panel-thanks">
         <p>Built with <a href="http://quasar-framework.org" target="blank">Quasar Framework</a></p>
         <p>Data thanks to <a href="https://www.cryptocompare.com" target="blank">CryptoCompare</a></p>
+      </div>
+
+      <!-- Legal -->
+      <div class="settings-panel settings-panel-legal">
+        <p>{{ $t('configuration.advice_relation') }}</p>
+        <p>{{ $t('configuration.advice_quasar') }}</p>
+        <p>{{ $t('configuration.advice_cryptocompare') }}</p>
       </div>
     </q-list>
   </div>
@@ -171,11 +179,20 @@ export default {
 }
 
 .settings-panel-thanks {
-  margin-top: 70px;
+  margin-top: 30px;
   > p {
     text-align: center;
     font-size: .8em;
     line-height: 9px;
+  }
+}
+.settings-panel-legal {
+  margin-bottom: 60px;
+  > p {
+    font-size: .6em;
+    line-height: 11px;
+    color: #9c9c9c;
+    margin-bottom: 2px;
   }
 }
 </style>
