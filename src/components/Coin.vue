@@ -214,9 +214,6 @@ export default {
       </div>
     </q-pull-to-refresh>
   </div>
-  <div v-else>
-    {{ $t('loading') }}...
-  </div>
 </template>
 
 <style lang="scss" scoped>
