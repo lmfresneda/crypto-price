@@ -21,7 +21,7 @@ export default {
   },
   methods: {
     changeRealTime () {
-      this.$store.commit(types.SET_REAL_TIME, this.thisRealTime)
+      this.$store.commit(types.SET_REAL_TIME, !this.realTime)
       this.$store.dispatch(types.FETCH_DATA_LIST)
     }
   },
@@ -46,7 +46,7 @@ export default {
             color="red"
             icon="warning"
             v-if="realTime" >
-            <q-toggle :value="realTime" color="red-2" @focus="changeRealTime"/> {{ $t('realtime_active') }}
+            {{ $t('realtime_active') }}
           </q-alert>
           <span slot="subtitle" v-if="data.socket && !error">
             <q-icon name="fiber_manual_record" color="green" /> {{ $t('connectedto') }}
@@ -55,7 +55,8 @@ export default {
           <span slot="subtitle" v-else>
             <q-icon name="fiber_manual_record" color="red" /> {{ $t('disconnected') }}
           </span>
-          <span slot="subtitle" style="float: right;">{{ config.version }}</span>
+          <span slot="subtitle" style="float: right;">
+            <q-toggle :value="realTime" color="deep-orange-13" @focus="changeRealTime"/></span>
         </q-toolbar-title>
       </q-toolbar>
     </q-layout>
@@ -93,5 +94,10 @@ export default {
 
 .fixed-position {
   position: fixed!important;
+}
+.crypto-logo {
+  width: 30px;
+  vertical-align: middle;
+  margin-left: -13px;
 }
 </style>
