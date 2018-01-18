@@ -52,7 +52,7 @@ export default {
     <!-- Header -->
     <q-toolbar slot="header" color="indigo-10" class="fixed-position" style="z-index: 999;">
       <q-toolbar-title>
-        <span class="config-title">{{ $t('configuration.title') }}</span>
+        <img class="crypto-logo" src="statics/logo.png" /> <span class="config-title">{{ $t('configuration.title') }}</span>
         <q-icon
           class="icon-close icon-white"
           @click="closeConfig()"
@@ -138,6 +138,7 @@ export default {
       <div class="settings-panel settings-panel-thanks">
         <p>Built with <a href="http://quasar-framework.org" target="blank">Quasar Framework</a></p>
         <p>Data thanks to <a href="https://www.cryptocompare.com" target="blank">CryptoCompare</a></p>
+        <p>v{{ config.version }}</p>
       </div>
 
       <!-- Legal -->
