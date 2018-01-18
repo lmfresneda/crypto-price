@@ -113,7 +113,7 @@ export default {
     <!-- Header -->
     <q-toolbar class="coin-toolbar" slot="header" color="indigo-10">
       <q-toolbar-title>
-        <span class="config-title">{{ getItem.FROM_CURRENCY }}/{{ getItem.TO_CURRENCY }}</span>
+        <img class="crypto-logo" src="statics/logo.png" /> <span class="config-title">{{ getItem.FROM_CURRENCY }}/{{ getItem.TO_CURRENCY }}</span>
         <q-icon
           class="icon-close icon-white"
           @click="closeCoin()"
@@ -243,13 +243,14 @@ export default {
       color: rgb(100, 100, 100);
     }
     &--date_old {
-      margin-top: 5px;
+      margin-top: 10px;
       span {
-        font-size: .9em;
-        color: #efef00;
-        background-color: #e42f2f;
         padding: 3px;
         border-radius: 2px;
+        font-size: .9em;
+        color: #d80000;
+        text-align: center;
+        border: 1px solid #d80000;
       }
     }
   }

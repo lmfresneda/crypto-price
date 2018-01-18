@@ -75,7 +75,7 @@ export default {
     <!-- Header -->
     <q-toolbar slot="header" color="indigo-10" v-show="!coinIsView">
       <q-toolbar-title>
-        {{ config.name }} <q-icon @click="viewConfig()" name="settings" size="1.5rem" style="float: right"/>
+        <img class="crypto-logo" src="statics/logo.png" /> {{ config.name }} <q-icon @click="viewConfig()" name="settings" size="1.5rem" style="float: right"/>
       </q-toolbar-title>
     </q-toolbar>
 

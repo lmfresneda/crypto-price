@@ -84,12 +84,12 @@ export default {
   }
   &-label-old {
     border-radius: 2px;
-    padding: 5px;
+    padding: 3px;
     font-size: .8em;
-    color: rgb(247, 247, 0);
-    background-color: rgb(240, 0, 0);
+    color: #d80000;
     min-width: 50px;
     text-align: center;
+    border: 1px solid #d80000;
   }
 }
 </style>
